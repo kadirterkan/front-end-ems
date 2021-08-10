@@ -1,0 +1,26 @@
+.navbar{
+    background-color: #9240FF;
+    right:0;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profile{
+    position:absolute;
+    right:0;
+    margin-right: 1rem;
+    font-size: xx-large;
+}
+
+.navbar-items{
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    list-style: revert;
+}
