@@ -1,52 +1,44 @@
-import {useState} from "react";
-import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { CSSTransition } from 'react-transition-group';
+import React,{useState} from 'react';
+import { Link } from "react-router-dom";
+import './Navbar.css';
+import styled from 'styled-components';
 
-const NavbarLink = styled(Link)`
-    position:flex;
-    right:0;
+
+const Menu = styled.div`
+    position:absolute;
+    top:58px;
+    width:300px;
+    border:1px solid #474a4d;
+    border-radius: 8px;
+    padding:1rem;
+    overflow:hidden;
+`
+
+const MenuItem = styled(Link)`
+    position:relative;
     display:flex;
-    justify-content:space-between;
-    align-items:right;
-    list-style:none;
-    font-size:20px;
-    text-decoration:none;
-    color:#fff;
-`;
-const NavbarLabel = styled.span`
+    background:#414757;
+    height:50px;
+    width:150px;
+    border-radius:8px;
+    padding:0.5rem;
+    `
 
-`;
 
-const DropdownMenu = styled(Link)`
-`;
 
-export function Navmenu({item}){
-    const [subnav,setSubnav] = useState(false);
 
-    const showSubnav = () => setSubnav(!subnav);
-
+export default function DropdownMenu({subNav,open}){
+    
     return(
-        <>
-        <NavbarLink to={item.path ? item.path : '#'} onClick={item.subNav && showSubnav}>
-            <div>
-                {item.icon}
-                <NavbarLabel>{item.title}</NavbarLabel>
-            </div>
-            <div>
-                {item.iconOpen ? item.iconOpen : null}
-            </div>
-        </NavbarLink>
-            {subnav && item.subNav.map((value,index) => {
-                return(
-
-                    <DropdownMenu key={index} to={value.path}>
-                        <NavbarLabel>{item.title}</NavbarLabel>
-                    </DropdownMenu>
-                )
-            })}
-        </>
-
-    );
+        <CSSTransition in={open} timeout={500} className={"menu-primary"}>
+            <Menu>
+                {subNav.map((value,index) => {
+                    return(
+                        <MenuItem to={value.path}>{value.title}</MenuItem>
+                    );
+                })}
+            </Menu>
+        </CSSTransition>    
+        );
 }
-
-export default Navmenu;

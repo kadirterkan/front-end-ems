@@ -4,7 +4,6 @@ import * as IoIcons from "react-icons/io";
 import * as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
 import * as RiIcons from "react-icons/ri";
-import * as GrIcons from "react-icons/gr";
 
 export const SidebarData = [
     {
@@ -15,22 +14,22 @@ export const SidebarData = [
     },
     {
         title: 'Events',
-        path: '/events',
+        path: '#',
         icon:<MdIcons.MdEvent className={'icon'}/>,
         cName: 'nav-text',
         iconClosed:<RiIcons.RiArrowDownSFill/>,
         iconOpened:<RiIcons.RiArrowUpSFill/>,
         subNav: [
             {
-                title:'Your Events',
-                path:'/events/mod-events',
-                icon:<MdIcons.MdEventAvailable/>,
+                title:'All Events',
+                path:'/events',
+                icon:<MdIcons.MdEventNote/>,
                 cName:'nav-text-sub'
             },
             {
-                title:'Add Event',
-                path:'/events/add-event',
-                icon:<GrIcons.GrTableAdd/>,
+                title:'Created Events',
+                path:'/events/mod-events',
+                icon:<MdIcons.MdEventAvailable/>,
                 cName:'nav-text-sub'
             },
             {
@@ -55,23 +54,32 @@ export const SidebarData = [
     }
 ]
 
-export const SidebarDataforUser = [
+export const SidebarDataforUsers = [
     {
         title: 'Home',
         path: '/',
         icon:<AiIcons.AiFillHome/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
     },
     {
         title: 'Events',
-        path: '/events',
-        icon:<MdIcons.MdEvent/>,
+        path: '#',
+        icon:<MdIcons.MdEvent className={'icon'}/>,
         cName: 'nav-text',
+        iconClosed:<RiIcons.RiArrowDownSFill/>,
+        iconOpened:<RiIcons.RiArrowUpSFill/>,
         subNav: [
+            {
+                title:'All Events',
+                path:'/events',
+                icon:<MdIcons.MdEventNote/>,
+                cName:'nav-text-sub'
+            },
             {
                 title:'Joined Events',
                 path:'/events/mod-events',
-                icon:<MdIcons.MdEventAvailable/>
+                icon:<MdIcons.MdEventAvailable/>,
+                cName:'nav-text-sub'
             }
         ]
     },

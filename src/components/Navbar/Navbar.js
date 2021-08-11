@@ -1,17 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {NavbarData} from "./NavbarData";
 import "./Navbar.css";
-import DropdownMenu from "./DropdownMenu";
+import NavItem from './NavItem';
+
 
 export default function Navbar() {
 
     return (
         <>
             <nav className={"navbar"}>
-                <ul className={'navbar-items'}>
+                <ul className={'navbar-nav'}>
                     {NavbarData.map((value,index) => {
                         return(
-                            <DropdownMenu item={value} key={index}/>
+                            <NavItem key={index} item={value}/>
                         );
                     })}
                 </ul>

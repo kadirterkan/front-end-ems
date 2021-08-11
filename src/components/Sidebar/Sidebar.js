@@ -26,9 +26,8 @@ export function Sidebar() {
                     </Link>
                 </li>
                 {SidebarData.map((value,index) => {
-                    
                     return(
-                        <Submenu item={value} key={index}/>
+                        <Submenu item={value} key={index} open={sidebar} setOpen={(value) => setSidebar(value)}/>
                     );
 
                 })}

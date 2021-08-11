@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -41,20 +41,32 @@ const DropdownLink = styled(Link)`
     }
     `;
 
+/* TODO: FIX THE WEIRD ANIMATION */
 
-export function Submenu({item}){
+
+export function Submenu({item,open,setOpen}){
 
     const [subnav,setSubnav] = useState(false);
 
-    const showSubnav = () => setSubnav(!subnav);
+    const showSubnav = () => {
+        setOpen(true);
+        setSubnav(!subnav);
+    }
+
+    useEffect(() => {
+        if(subnav){
+            setSubnav(open);
+        }
+    },[open]);
 
     return(
         <>
 
-            <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-            <div>
+            <SidebarLink to={item.subNav ? item.path : "#"} onClick={item.subNav && showSubnav}>
+            <div className={"tooltip"}>
                 {item.icon}
-                <SidebarLabel>{item.title}</SidebarLabel>
+                {!open && <span className={"tooltiptext"}>{item.title}</span>}
+                {open && <SidebarLabel>{item.title}</SidebarLabel>} 
             </div>
             <div>
                 {item.subNav && subnav ? 
@@ -64,12 +76,6 @@ export function Submenu({item}){
                 : null}
             </div>
         </SidebarLink>
-            <CSSTransition
-                in={subnav}
-                unmountonExit
-                timeout={500}
-                classNames={"sub-menu-trans"}>
-            <div>
         {subnav && item.subNav.map((item,index) => {
             return(
             <DropdownLink key={index} to={item.path}>
@@ -78,8 +84,6 @@ export function Submenu({item}){
             </DropdownLink>
             );
         })}
-            </div>
-            </CSSTransition>
         </>
     );
 }

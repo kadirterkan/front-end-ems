@@ -1,26 +1,86 @@
-.navbar{
-    background-color: #9240FF;
-    right:0;
-    height: 80px;
+body {
+    margin: 0;
+    background: #151616;
+    font-family: roboto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  
+  :root {
+    --bg:  #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --nav-size: 60px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms; 
+  }
+  
+  /* ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  a {
+    color: var(--text-color);
+    text-decoration: none;;
+  } */
+  
+  /* Top Navigation Bar */
+  
+  /* <nav> */
+  .navbar{
+    border: var(--border);
+    background-color: var(--bg);
+    height: var(--nav-size);
+  }
+
+  .navbar-nav{
+    padding: 0;
+    margin: 0;
+    list-style: none;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
+    justify-content: flex-end;
+    align-content: center;
+  }
 
-.profile{
-    position:absolute;
-    right:0;
-    margin-right: 1rem;
-    font-size: xx-large;
-}
 
-.navbar-items{
-    align-items: center;
-    justify-content: center;
+  /* CSSTransition classes  */
+  .menu-primary-enter {
     position: absolute;
-    right: 0;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 10px;
-    list-style: revert;
-}
+    transform: translateX(-110%);
+  }
+  .menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+  }
+  .menu-primary-exit {
+    position: absolute;
+  }
+  .menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all var(--speed) ease;
+  }
+  
+  
+  .menu-secondary-enter {
+    transform: translateX(110%);
+  }
+  .menu-secondary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+  }
+  .menu-secondary-exit {
+  
+  }
+  .menu-secondary-exit-active {
+    transform: translateX(110%);
+    transition: all var(--speed) ease;
+  }
