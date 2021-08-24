@@ -1,8 +1,8 @@
 import axios from "axios";
-import toast from "toast";
+import {toast} from "react-toastify";
 
 
-export class EventApi {
+export default class EventApi {
 
     handleBadResponse(reason){
         if(reason.response.status === 400){
@@ -18,7 +18,7 @@ export class EventApi {
 
 
     getAllEvents(){
-        axios.get("/web-api/events/event-list").then((value) => {
+        return axios.get("/web-api/event-controller/events/event-list").then((value) => {
             return value.data;
         })
         .catch((reason) => {

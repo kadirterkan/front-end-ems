@@ -1,13 +1,33 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import {SidebarData} from "./SidebarData";
 import {Submenu} from "./Submenu";
 import "./Sidebar.css";
+import {SidebarEvents} from './SidebarData';
 import { IconContext } from 'react-icons/lib';
+import styled from 'styled-components';
+import { blue } from '@material-ui/core/colors';
 
-export function Sidebar() {
+
+const CreateEventButton = styled(NavLink)`
+    position:absolute;
+    border-radius:8px;
+    color:rgba(90, 180, 255,1);
+    background-color:rgba(47, 69, 98 ,0.7);
+    padding:20px;
+    text-align:center;
+    margin-left:25px;
+    padding-inline: 60px;
+    margin-top:5px;
+
+    &:hover{
+        filter:brightness(1.2);
+    }
+`
+
+
+export default function Sidebar() {
 
     const [sidebar,setSidebar] = useState(false);
 
@@ -15,26 +35,19 @@ export function Sidebar() {
 
     return(
         <>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+        <nav className={'nav-menu'}>
+            <h1 className={'nav-menu-name'}>Events</h1>
+            <h1 className={'nav-menu-name'}>Search</h1>
             <ul className='nav-menu-items'>
-                <li className="sidebar-toggle">
-                    <Link to="#" className='menu-bars'>
-                        <IconContext.Provider value={{color:'#fff'}}>
-                            {sidebar && <AiIcons.AiOutlineClose onClick={showSidebar}/>}
-                            {!sidebar &&  <FaIcons.FaBars onClick={showSidebar}/>}
-                        </IconContext.Provider>
-                    </Link>
-                </li>
-                {SidebarData.map((value,index) => {
+                {SidebarEvents.map((value,index) => {
                     return(
                         <Submenu item={value} key={index} open={sidebar} setOpen={(value) => setSidebar(value)}/>
                     );
-
                 })}
             </ul>
+            <CreateEventButton to={'events/create-event'}><span style={{'filter':'brightness(1.2)','z-index':'2'}}>+ Create New Event</span></CreateEventButton>
         </nav>
         </>
     )
 }
 
-export default Sidebar;

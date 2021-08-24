@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const Menu = styled.div`
     position:absolute;
     top:58px;
+    background-color:#242526;
     width:300px;
     border:1px solid #474a4d;
     border-radius: 8px;
@@ -16,14 +17,18 @@ const Menu = styled.div`
 `
 
 const MenuItem = styled(Link)`
+    color:#fff;
     position:relative;
     display:flex;
-    background:#414757;
-    height:50px;
-    width:150px;
+    height:100%;
+    width:100%;
     border-radius:8px;
     padding:0.5rem;
-    `
+
+    &:hover {
+        background-color: #525357;
+    }
+    `;
 
 
 
@@ -31,14 +36,14 @@ const MenuItem = styled(Link)`
 export default function DropdownMenu({subNav,open}){
     
     return(
-        <CSSTransition in={open} timeout={500} className={"menu-primary"}>
+        // <CSSTransition in={open} timeout={500} className={"menu-primary"}>
             <Menu>
                 {subNav.map((value,index) => {
                     return(
-                        <MenuItem to={value.path}>{value.title}</MenuItem>
+                        <MenuItem key={index} to={value.path}>{value.title}</MenuItem>
                     );
                 })}
             </Menu>
-        </CSSTransition>    
+        // </CSSTransition>    
         );
 }
