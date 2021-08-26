@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {IoCalendarClearOutline} from 'react-icons/io';
 import {BiUserCircle} from 'react-icons/bi';
-import {AiOutlineCheckCircle,AiOutlineStar} from 'react-icons/ai';
-import {GiSandsOfTime} from 'react-icons/gi';
+import {AiOutlineCheckCircle,AiOutlineStar,AiOutlineInfoCircle} from 'react-icons/ai';
+import {GiSandsOfTime,GiOfficeChair} from 'react-icons/gi';
 import {HiUsers,HiOfficeBuilding} from 'react-icons/hi';
-import {BsFillLockFill} from 'react-icons/bs';
-import * as dayjs from 'dayjs'
+import useLocation from './useLocation';
+
+
+import * as dayjs from 'dayjs';
+
 
 const Model = styled.div`
     position:relative;
@@ -162,10 +165,8 @@ const OnlineEvent = styled.button`
 `
 
 const DownSide = styled.div`
-    padding:1rem;
     display:grid;
     grid-template-columns:50% 50%;
-    gap:0.5rem;
     position:relative;
     background-color:#151616;
     border-bottom-left-radius: 8px;
@@ -214,10 +215,11 @@ const Going = styled.button`
 `
 
 const Details = styled.div`
+    margin:1rem;
     position:relative;
     display:grid;
+    height:300px;
     padding:1rem;
-    gap:1rem;
     border-radius:8px;
     background-color:#242526;
 `
@@ -230,20 +232,28 @@ const TimeLabel = styled.div`
 
 `
 
+const CategoryLabel = styled.div`
+
+`
+
 const Publicity = styled.div`
 
 `
 
 const Description = styled.div`
-    max-width:30rem;
+    max-width:25rem;
     word-wrap: break-word;
 `
 const LocationGuest = styled.div`
+    width:100%;
+    margin-right:1rem;
+    margin-top:1rem;
     display:grid;
     gap:1rem;
 `
 
 const LocationLook = styled.div`
+
     background-color:#242526;
     margin-right:1rem;
     border-radius:8px;
@@ -256,8 +266,9 @@ const LocationValues = styled.div`
 
 
 const GuestList = styled.div`
-    position:relative;
     margin-right:1rem;
+    height:150px;
+    position:relative;
     padding:1rem;
     display:grid;
     gap:1rem;
@@ -293,7 +304,9 @@ const SeeAll = styled.button`
     cursor:pointer;
 `
 
-export default function EventPreView({newEvent}) {
+export default function EventPreView({newEventQuery}) {
+
+    const {PhysicalLocation} = useLocation(newEventQuery.eventCoordinates);
 
 
     const eventLong = () => {
@@ -301,7 +314,7 @@ export default function EventPreView({newEvent}) {
         dayjs.extend(relativeTime)
 
 
-        return dayjs(newEvent.endTime).from(dayjs(newEvent.startTime),true);
+        return dayjs(newEventQuery.endTime).from(dayjs(newEventQuery.startTime),true);
     }
 
     const [duration,setDuration] = useState(eventLong());
@@ -309,7 +322,9 @@ export default function EventPreView({newEvent}) {
 
     useEffect(() => {
         setDuration(eventLong());
-    },[newEvent.startTime,newEvent.endTime])
+    },[newEventQuery.startTime,newEventQuery.endTime])
+
+    
     
     return(
         <>
@@ -317,16 +332,16 @@ export default function EventPreView({newEvent}) {
             <h4>Event Preview</h4>
             <Interrior>
                 <Upperside>
-                    {newEvent.base64Image!=null ? <ImgCalendar>
-                        <Calendar><div className="up"></div><div className={"down"}><h1>{newEvent.startTime.getDate()}</h1></div></Calendar>
-                        <Image src={newEvent.base64Image}></Image>
-                    </ImgCalendar> :<Calendar style={{'position':'static'}}><div className="up"></div><div className={"down"}><h1>{newEvent.startTime.getDate()}</h1></div></Calendar>}
-                    <Dates>{newEvent.startTime.toString()} - {newEvent.endTime.toString()}</Dates>
-                        <EventName>{newEvent.eventName === "" ? "Event Name" : newEvent.eventName}</EventName>
-                        <TypeJoin>
-                            <EventType>{newEvent.eventType === "online" ? "Online" 
-                            : (newEvent.eventCoordinates !=null ? newEvent.locationName: "Location")}</EventType>
-                        </TypeJoin>
+                    {newEventQuery.base64Image!=null ? <ImgCalendar>
+                        <Calendar><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>
+                        <Image src={newEventQuery.base64Image}></Image>
+                    </ImgCalendar> :<Calendar style={{'position':'static'}}><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>}
+                    <Dates>{newEventQuery.startTime.toString()} - {newEventQuery.endTime.toString()}</Dates>
+                    <EventName>{newEventQuery.eventName === "" ? "Event Name" : newEventQuery.eventName}</EventName>
+                    <TypeJoin>
+                    <EventType>{newEventQuery.eventType === "online" ? "Online" 
+                    : (newEventQuery.eventCoordinates !=null ? newEventQuery.locationName: "Location")}</EventType>
+                    </TypeJoin>
                     <Creator>
                         <Profile>
                             <ProfileIcon><BiUserCircle/><h4>NAME GOES HERE</h4></ProfileIcon>
@@ -342,11 +357,12 @@ export default function EventPreView({newEvent}) {
                     <Details>
                         <DetailsName>Details</DetailsName>
                         <TimeLabel><GiSandsOfTime/> {duration}</TimeLabel>
-                        {newEvent.eventPublicity && (<Publicity><HiOfficeBuilding/> {newEvent.eventPublicity === "company" ? "Company - Only for the people in your Company" : "Department - Only for the people in your Department"}</Publicity>)}
-                        <Description><p>{newEvent.eventDescription}</p></Description>
+                        <CategoryLabel> {newEventQuery.eventCategory != "" && <p><AiOutlineInfoCircle/> {newEventQuery.eventCategory}</p>}</CategoryLabel>
+                        {(<Publicity> {newEventQuery.eventPublicity === "company" ? <p><HiOfficeBuilding/> Company - Only for the people in your Company</p> : newEventQuery.eventPublicity === "department" ? <p><GiOfficeChair/> Department - Only for the people in your Department</p> : null}</Publicity>)}
+                        <Description><p>{newEventQuery.eventDescription}</p></Description>
                     </Details>
                     <LocationGuest>
-                        {newEvent.eventCoordinates !=null ? (<LocationLook><LocationValues>{newEvent.eventCoordinates.locationName}</LocationValues></LocationLook>) : null}
+                        {newEventQuery.eventCoordinates &&  newEventQuery.eventCoordinates.eventLocationName!="" ? (<LocationLook><PhysicalLocation/><LocationValues>{newEventQuery.eventCoordinates.locationName}</LocationValues></LocationLook>) : null}
                         <GuestList>
                             <SeeAll>See All</SeeAll>
                             <GuestName>Guest List</GuestName>
@@ -356,7 +372,7 @@ export default function EventPreView({newEvent}) {
                                     <h5>GOING</h5>
                                 </PeopleGoInt>
                                 <PeopleGoInt>
-                                    <h4>{newEvent.quota === 0 ? "Quota" : newEvent.quota }</h4>
+                                    <h4>{newEventQuery.quota === 0 ? "Quota" : newEventQuery.quota }</h4>
                                     <h5>QUOTA</h5>
                                 </PeopleGoInt>
                                 <PeopleGoInt>

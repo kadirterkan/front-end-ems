@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import useForm from './useForm';
 
 
 const NavLink = styled(Link)`
@@ -30,6 +32,7 @@ const SidebarMenu = styled.span`
 
 
 const InputForm = styled.div`
+margin-top:1rem;
 position:relative;
 display:grid;
 height:3rem;
@@ -51,9 +54,9 @@ justify-content:center;
 `
 
 
-export default function ImageInput(props) {
+export default function ImageInput({newEventQuery,handleWithKeyAndValue}) {
 
-    const {setEventImage,setLoading} = {...props};
+    const [eventImage,setEventImage] = useState(null);
 
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -65,12 +68,17 @@ export default function ImageInput(props) {
 
 
     const imageUploadHandler = async (event) => {
-        setLoading(true);
 
         setEventImage(await toBase64(event.target.files[0]));
 
-        setLoading(false);
+
     }
+
+    useEffect(() => {
+        handleWithKeyAndValue("base64Image",eventImage);
+
+    },[eventImage]);
+
 
     return(
         <>

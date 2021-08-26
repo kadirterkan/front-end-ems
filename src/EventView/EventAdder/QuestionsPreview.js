@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AddModel, EditModel } from './DialogModels';
 import {AiOutlineDelete} from 'react-icons/ai';
 import {FaRegEdit} from 'react-icons/fa';
+import useForm from './useForm';
 
 
 const AnimatedForm = styled.div`
@@ -131,16 +132,11 @@ const DeleteButton = styled(AiOutlineDelete)`
     }
 `
 
-export default function QuestionsPreview(props) {
+export default function QuestionsPreview({handleQuestions}) {
 
-    // const {eventQuestions,setEventQuestions} = {...props};
+
     const [questions,setQuestions] = useState([]);
-    const [showModel,setShowModel] = useState(false);
-    const [showEditModel,setShowEditModel] = useState(false);
-    const [newQuestion,setNewQuestion] = useState("questionsEST");
-    const [selectedQuestion,setSelectedQuestion] = useState(0);
 
-    const openModel = () => setShowModel(prev => !prev);
 
     const addQuestion = () => {
 
@@ -150,11 +146,7 @@ export default function QuestionsPreview(props) {
 
     const onSubmit = () => {
 
-        setQuestions(oldArray => [...oldArray,newQuestion]);
-
-        setShowModel(false);
-
-        setNewQuestion("");
+        handleQuestions(questions);
     }
 
     
@@ -165,14 +157,6 @@ export default function QuestionsPreview(props) {
         newModel.splice(index,1);
 
         setQuestions([...newModel]);
-
-        setNewQuestion(false);
-    }
-
-    const onClickEditButton = (index) => {
-        setSelectedQuestion(index);
-        setNewQuestion(questions[index]);
-        setShowEditModel(true);
     }
 
     const onChange = (event,index) => {

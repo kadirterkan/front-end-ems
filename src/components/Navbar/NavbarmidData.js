@@ -5,6 +5,7 @@ import * as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
 import * as RiIcons from "react-icons/ri";
 
+
 export const NavbarmidData = [
     {
         // title: 'Home',
@@ -15,7 +16,7 @@ export const NavbarmidData = [
     {
         // title: 'Events',
         path: '/events',
-        icon:<MdIcons.MdEvent className={'icon'}/>,
+        icon:<RiIcons.RiAdminLine className={'icon'}/>,
         cName: 'nav-text',
         iconClosed:<RiIcons.RiArrowDownSFill/>,
         iconOpened:<RiIcons.RiArrowUpSFill/>,

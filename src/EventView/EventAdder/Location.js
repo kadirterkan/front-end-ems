@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import {BsLink45Deg} from 'react-icons/bs';
 import { LocationModel } from './DialogModels';
 import {ImLocation} from 'react-icons/im';
+import useForm from './useForm';
+
 
 
 
@@ -27,8 +29,7 @@ color:black;
 
 
 .input{
-    border-radius:8px;
-    border:1px solid #474a4d;
+    
     box-shadow: none;
     box-sizing:border-box;
     padding:1.5rem;
@@ -94,7 +95,12 @@ const UrlIcon = styled(BsLink45Deg)`
 
 
 
-const SidebarMenuName = styled.h1`
+const SidebarMenuName = styled.h3`
+    color:#fff;
+    margin-left:1rem;
+    margin-top:0.25rem;
+`
+const SidebarMenu = styled.span`
     color:#fff;
     margin-left:1rem;
     margin-top:0.25rem;
@@ -108,6 +114,7 @@ const LocationForm = styled.div`
 `
 
 const LocationIcon = styled(ImLocation)`
+    color:#fff;
     padding:0.5rem;
     width:40px;
     height:40px;
@@ -177,30 +184,29 @@ const center = {
     lng:32.859741
 }
 
-export default function Location(props){
+export default function Location({isSubmitting,errors,handleWithKeyAndValue,handleChange,newEventQuery}){
 
-    const {newEvent,setNewEvent} = {...props};
     const [value,setValue] = useState(center);
     const [showModel,setShowModel] = useState(false);
 
     const openModel = () => setShowModel(!showModel);
 
     const onPhysicalLocationEnter = (mapValue) => {
-        let newModel = {...newEvent};
 
-        console.log(mapValue);
+        let eventCoordinates = {lat:0,lng:0,eventLocationName:""};
 
         geocodeByPlaceId(mapValue.value.place_id)
             .then(results => getLatLng(results[0]))
             .then(({lat,lng}) => {
                 setValue({lat:lat,lng:lng});
-                newModel.eventCoordinates.lat=lat;
-                newModel.eventCoordinates.lng=lng;
+                eventCoordinates.lat=lat;
+                eventCoordinates.lng=lng;
             });
 
-        newModel.eventCoordinates.eventLocationName=mapValue.label;
+        eventCoordinates.eventLocationName=mapValue.label;
 
-        setNewEvent(newModel);
+        handleWithKeyAndValue("eventCoordinates",eventCoordinates);
+
     }
 
     const places = ["places"];
@@ -224,13 +230,12 @@ export default function Location(props){
                     <GooglePlacesAutocomplete
                             apiOptions={{region:'tr'}}
                             selectProps={{
-                                placeholder:(newEvent.eventCoordinates != null ? newEvent.eventCoordinates.eventLocationName : "Please enter your place"),
+                                placeholder:(newEventQuery.eventCoordinates != null ? newEventQuery.eventCoordinates.eventLocationName : "Please enter your place"),
                                 onChange:onPhysicalLocationEnter
                             }}
-                            inputStyle={{'color':'red'}}
                             inputClassName={"input"}
                             />
-                    <LocationIcon onClick={() => openModel()}/>
+                    <LocationIcon style={isSubmitting && newEventQuery.eventCoordinates.eventLocationName ==="" ? {'color':'red'} : null} onClick={() => openModel()}/>
                 </AutcompleteLocation>
             </AnimatedForm>
             </>
@@ -238,22 +243,12 @@ export default function Location(props){
 }
     const LocationPopup = () => {
 
-        const onLocationNameEnter = (event) => {
-            let newModel = {...temporaryValue,eventLocationName:event.target.value};
-        
-            setTemporaryValue(newModel);
-        }
-
 
         const [marker,setMarker] = useState(null);
-        const [temporaryValue,setTemporaryValue] = useState(center);
+        const [temporaryValue,setTemporaryValue] = useState({...center,eventLocationName:""});
 
         const saveModel = () => {
-            let newModel = {...newEvent};
-
-            newModel.eventCoordinates = temporaryValue;
-
-            setNewEvent(newModel);
+            handleWithKeyAndValue("eventCoordinates",temporaryValue);
 
             setShowModel(false);
         }
@@ -264,8 +259,12 @@ export default function Location(props){
                 .then(results => getLatLng(results[0]))
                 .then(({lat,lng}) => {
                     setTemporaryValue({lat:lat,lng:lng,eventLocationName:mapValue.label});
+                    setMarker({lat:lat,lng:lng});
                 });
-            }
+
+
+
+        }
 
         const onMapClick = React.useCallback((event) => {
 
@@ -279,6 +278,12 @@ export default function Location(props){
             mapRef.current = map;
         },[]);
 
+        const onLocationNameEnter = (event) => {
+            let newModel = {...temporaryValue,eventLocationName:event.target.value};
+        
+            setTemporaryValue(newModel);
+        }
+
         return(
         <LocationModel showModel={showModel} setShowModel={setShowModel}>
             <div className={"map"}>
@@ -286,7 +291,7 @@ export default function Location(props){
                     <GooglePlacesAutocomplete
                             apiOptions={{region:'tr'}}
                             selectProps={{
-                                placeholder:(newEvent.eventCoordinates != null ? newEvent.eventCoordinates.eventLocationName : "Please enter your place"),
+                                placeholder:(newEventQuery.eventCoordinates != null ? newEventQuery.eventCoordinates.eventLocationName : "Please enter your place"),
                                 onChange:onTemporyalValueEnter
                             }}
                             inputClassName={"input"}
@@ -315,7 +320,7 @@ export default function Location(props){
             </div>
             <h5>Location {temporaryValue.lat}  {temporaryValue.lng}</h5>
             <AnimatedForm style={{'margin-top':'1rem'}}>
-                <input type="text" id="locationName" name={"locationName"} className={"input"} onChange={onLocationNameEnter} placeholder=" "/>
+                <input type="text" id="locationName" name={"locationName"} className={"input"} value={newEventQuery.eventCoordinates.eventLocationName ==="" ? temporaryValue.eventLocationName : newEventQuery.eventCoordinates.eventLocationName} onChange={onLocationNameEnter} placeholder=" "/>
                 <label htmlFor={"locationName"} className={"string"}>Location Name</label>
             </AnimatedForm>
             <Buttons>
@@ -325,26 +330,8 @@ export default function Location(props){
         </LocationModel>);
     }
 
-    const onUrlEnter = (event) => {
-        let newModel = {...newEvent};
-
-        newModel.eventUrl = event.target.value;
-
-        setNewEvent(newModel);
-    }
-
-    const UrlLink = () => {
 
 
-        return(
-            <div>
-                <AnimatedForm>
-                    <input type="text" id="url" name={"url"} className={"input"} onChange={onUrlEnter} autocomplete="off" placeholder=" "/>
-                    <label htmlFor={"url"} className={"string"}>Event Link</label>
-                </AnimatedForm>
-            </div>
-        )
-    }
 
 
     return(
@@ -354,14 +341,29 @@ export default function Location(props){
                 <h6>-</h6>
                 <NavLink to={'#'}><h6>Create Event</h6></NavLink>
             </SidebarHeaderLinks>
-            {newEvent.eventType === "physical" ? <> <SidebarMenuName>Event Physical Location</SidebarMenuName>
-            <SidebarMenuName><h5>Enter your events location from the map</h5></SidebarMenuName>
-            <Physical/> </> :
-            <><SidebarMenuName>Event Physical Location</SidebarMenuName>
-            <SidebarMenuName>Enter your events location from the map</SidebarMenuName>
-            <UrlLink/></>
-            }
-            <LocationPopup/>
+            
+                {newEventQuery.eventType === "physical" ? 
+                <> 
+                    <SidebarMenuName>Event Physical Location</SidebarMenuName>
+                    <SidebarMenu>Enter your events location from the map</SidebarMenu>
+                    <div className={"locationTypes"}>
+                        <Physical/> 
+                    </div>
+                </> :
+                <>
+                    <SidebarMenuName>Event Physical Location</SidebarMenuName>
+                    <SidebarMenu>Enter your events location from the map</SidebarMenu>
+                    <div className={"locationTypes"}>
+                        <div>
+                            <AnimatedForm>
+                                <input style={isSubmitting && errors.eventUrl ? {'border':'1px solid red'} : null} type="text" id="eventUrl" name={"eventUrl"} className={"input"} value={newEventQuery.eventUrl} onChange={handleChange} autocomplete="off" placeholder=" "/>
+                                <label style={isSubmitting && errors.eventUrl ? {'color':'red'} : null} htmlFor={"eventUrl"} className={"string"}>Event Link</label>
+                            </AnimatedForm>
+                        </div>
+                    </div>
+                </>
+                }
+            {newEventQuery.eventType === "physical" && <LocationPopup/>}
         </>
     );
 }

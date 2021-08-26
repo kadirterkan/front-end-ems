@@ -4,7 +4,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import {Submenu} from "./Submenu";
 import "./Sidebar.css";
-import {SidebarEvents} from './SidebarData';
+import {SidebarEvents,modSidebar} from './SidebarData';
 import { IconContext } from 'react-icons/lib';
 import styled from 'styled-components';
 import { blue } from '@material-ui/core/colors';
@@ -39,7 +39,7 @@ export default function Sidebar() {
             <h1 className={'nav-menu-name'}>Events</h1>
             <h1 className={'nav-menu-name'}>Search</h1>
             <ul className='nav-menu-items'>
-                {SidebarEvents.map((value,index) => {
+                {modSidebar.map((value,index) => {
                     return(
                         <Submenu item={value} key={index} open={sidebar} setOpen={(value) => setSidebar(value)}/>
                     );

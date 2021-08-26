@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import {GiEarthAfricaEurope} from 'react-icons/gi';
 import {Types} from './AddEventData';
-
-
+import useForm from './useForm';
 
 const AddEventTypeBoxModel = styled.div`
     color:#fff;
@@ -78,12 +77,12 @@ const EventTypes = styled.div`
     gap:15px;
     `
 
-export default function AddEventTypes(props) {
+export default function AddEventTypes({handleType,nextPage}) {
 
-    const {setEventType} = {...props};
 
-    const eventHandler = (eventType) => {
-        setEventType(eventType);
+    const handleTypeFunc = (value) => {
+        handleType(value);
+        nextPage();
     }
 
     function AddEventTypeBox({item,func}){
@@ -107,7 +106,7 @@ export default function AddEventTypes(props) {
                 <HeaderName>Create Event</HeaderName>
                 <EventTypes>
                     {Types.map((value,index) => (
-                        <AddEventTypeBox func={eventHandler} key={index} item={value}/>
+                        <AddEventTypeBox func={handleTypeFunc} key={index} item={value}/>
                     ))}
                 </EventTypes>
             </AddEventType>

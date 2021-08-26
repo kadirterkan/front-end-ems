@@ -1,8 +1,7 @@
 import {RiUser3Fill} from 'react-icons/ri';
 import {FiUsers} from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-
-
+import useForm from './useForm';
 import styled from 'styled-components';
 
 
@@ -92,7 +91,7 @@ const Diviser = styled.div`
 
 
 
-export default function SidebarChooseType(props){
+export default function SidebarChooseType(){
     
     return(
         <>
