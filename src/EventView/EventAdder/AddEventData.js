@@ -22,13 +22,13 @@ export const Types = [
     {
         icon:<GiEarthAfricaEurope/>,
         title:'Online / Remote',
-        type:'online',
+        type:'ONLINE',
         description:'Online Events with an external link for the event'
     },
     {
         icon:<FiUsers/>,
         title:'In Person / Physical',
-        type:'physical',
+        type:'PHYSICAL',
         description:'Get together with people in a specific location'
     }
 ]

@@ -1,21 +1,23 @@
 import React,{ useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {IoCalendarClearOutline} from 'react-icons/io';
 import {BiUserCircle} from 'react-icons/bi';
-import {AiOutlineCheckCircle,AiOutlineStar,AiOutlineInfoCircle} from 'react-icons/ai';
-import {GiSandsOfTime,GiOfficeChair} from 'react-icons/gi';
-import {HiUsers,HiOfficeBuilding} from 'react-icons/hi';
-import useLocation from './useLocation';
-
+import {AiOutlineCheckCircle,AiOutlineStar,AiOutlineInfoCircle,AiFillLock,AiFillUnlock} from 'react-icons/ai';
+import {GiSandsOfTime} from 'react-icons/gi';
+import {privacyValues} from './departments';
+import {FaMapMarkerAlt} from 'react-icons/fa';
+import {StaticMap,Marker} from 'react-map-gl';
 
 import * as dayjs from 'dayjs';
-
+import { set } from 'react-hook-form';
 
 const Model = styled.div`
     position:relative;
-    margin:5rem;
+    margin-left: 5rem;
+    margin-top: 2rem;
+    margin-right: 5rem;    
     border-radius:8px;
     background-color:#242526;
+    height: 600px;
     color:#fff;
     padding:1rem;
     border:1px solid #474a4d;
@@ -143,9 +145,10 @@ const EventName = styled.h3`
     margin-left:1rem;
 `
 
-const EventType = styled.h4`
+const EventType = styled.h5`
     color:#fff;
-    
+    margin-top:0.7rem;
+    margin-left:1rem;
 `
 
 const OnlineEvent = styled.button`
@@ -166,7 +169,7 @@ const OnlineEvent = styled.button`
 
 const DownSide = styled.div`
     display:grid;
-    grid-template-columns:50% 50%;
+    grid-template-columns:60% 40%;
     position:relative;
     background-color:#151616;
     border-bottom-left-radius: 8px;
@@ -195,8 +198,6 @@ const Interested = styled.button`
     }
 `
 
-
-
 const Going = styled.button`
     display:grid;
     justify-content:space-between;
@@ -216,12 +217,13 @@ const Going = styled.button`
 
 const Details = styled.div`
     margin:1rem;
-    position:relative;
     display:grid;
-    height:300px;
+    gap:1rem;
+    position:relative;
     padding:1rem;
     border-radius:8px;
     background-color:#242526;
+    height: fit-content;
 `
 
 const DetailsName = styled.h3`
@@ -237,6 +239,8 @@ const CategoryLabel = styled.div`
 `
 
 const Publicity = styled.div`
+    position:relative;
+    display:flex;
 
 `
 
@@ -245,15 +249,14 @@ const Description = styled.div`
     word-wrap: break-word;
 `
 const LocationGuest = styled.div`
-    width:100%;
-    margin-right:1rem;
     margin-top:1rem;
     display:grid;
     gap:1rem;
 `
 
 const LocationLook = styled.div`
-
+    display:grid;
+    gap:1rem;
     background-color:#242526;
     margin-right:1rem;
     border-radius:8px;
@@ -264,16 +267,15 @@ const LocationValues = styled.div`
     padding:1rem;
 `
 
-
 const GuestList = styled.div`
-    margin-right:1rem;
     height:150px;
     position:relative;
     padding:1rem;
     display:grid;
-    gap:1rem;
     border-radius:8px;
     background-color:#242526;
+    margin-right:1rem;
+    margin-bottom:1rem;
 `
 
 const GuestName = styled.h3`
@@ -281,18 +283,14 @@ const GuestName = styled.h3`
 `
 
 const GoingInterested = styled.div`
-
     display:flex;
+    justify-content:space-between;
 `
 
 const PeopleGoInt = styled.div`
     text-align:center;
-    margin-left:3rem;
-    margin-right:3rem;
     display:grid;
 `
-
-
 
 const SeeAll = styled.button`
     position:absolute;
@@ -304,87 +302,112 @@ const SeeAll = styled.button`
     cursor:pointer;
 `
 
-export default function EventPreView({newEventQuery}) {
+const Static = styled(StaticMap)`
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width:100%;
+`
 
-    const {PhysicalLocation} = useLocation(newEventQuery.eventCoordinates);
+const EventDescription = ({eventDescription}) => {
 
+    return(
+        <>
+        <Description><p>{eventDescription}</p></Description>
+        </>
+    );
+}
+
+const PhysicalLocation = ({eventCoordinates}) => {
+
+    return(
+
+        <Static
+        mapboxApiAccessToken={"pk.eyJ1IjoiZmxvd215dGVhcnMiLCJhIjoiY2tzdzM1N2FwMXc4YjJxbjFwenh1MmkzMiJ9.b4TjcSITKdwiZ8Wv39LZLQ"}
+        width="100%"
+        height="300px"
+        latitude={eventCoordinates.lat}
+        longitude={eventCoordinates.lng}
+        zoom={15}>
+            <Marker  latitude={eventCoordinates.lat} longitude={eventCoordinates.lng}>
+                <FaMapMarkerAlt style={{'color':'red'}}/>
+            </Marker>
+        </Static>
+        );
+}
+
+export default function EventPreView({newEventQuery,isLoading}) {
 
     const eventLong = () => {
         var relativeTime = require('dayjs/plugin/relativeTime')
         dayjs.extend(relativeTime)
-
 
         return dayjs(newEventQuery.endTime).from(dayjs(newEventQuery.startTime),true);
     }
 
     const [duration,setDuration] = useState(eventLong());
 
-
     useEffect(() => {
         setDuration(eventLong());
-    },[newEventQuery.startTime,newEventQuery.endTime])
-
-    
+    },[newEventQuery.startTime,newEventQuery.endTime]);
     
     return(
         <>
-        <Model>
-            <h4>Event Preview</h4>
-            <Interrior>
-                <Upperside>
-                    {newEventQuery.base64Image!=null ? <ImgCalendar>
-                        <Calendar><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>
-                        <Image src={newEventQuery.base64Image}></Image>
-                    </ImgCalendar> :<Calendar style={{'position':'static'}}><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>}
-                    <Dates>{newEventQuery.startTime.toString()} - {newEventQuery.endTime.toString()}</Dates>
-                    <EventName>{newEventQuery.eventName === "" ? "Event Name" : newEventQuery.eventName}</EventName>
-                    <TypeJoin>
-                    <EventType>{newEventQuery.eventType === "online" ? "Online" 
-                    : (newEventQuery.eventCoordinates !=null ? newEventQuery.locationName: "Location")}</EventType>
-                    </TypeJoin>
-                    <Creator>
-                        <Profile>
-                            <ProfileIcon><BiUserCircle/><h4>NAME GOES HERE</h4></ProfileIcon>
-                            <RightButtons >
-                                <Interested><AiOutlineStar/><h3>Interested</h3></Interested>
-                                <Going><AiOutlineCheckCircle/><h3>Going</h3></Going>
-                            </RightButtons>
-                        </Profile>
-                    </Creator>
-                </Upperside>
-                <DownSide>
-                    
-                    <Details>
-                        <DetailsName>Details</DetailsName>
-                        <TimeLabel><GiSandsOfTime/> {duration}</TimeLabel>
-                        <CategoryLabel> {newEventQuery.eventCategory != "" && <p><AiOutlineInfoCircle/> {newEventQuery.eventCategory}</p>}</CategoryLabel>
-                        {(<Publicity> {newEventQuery.eventPublicity === "company" ? <p><HiOfficeBuilding/> Company - Only for the people in your Company</p> : newEventQuery.eventPublicity === "department" ? <p><GiOfficeChair/> Department - Only for the people in your Department</p> : null}</Publicity>)}
-                        <Description><p>{newEventQuery.eventDescription}</p></Description>
-                    </Details>
-                    <LocationGuest>
-                        {newEventQuery.eventCoordinates &&  newEventQuery.eventCoordinates.eventLocationName!="" ? (<LocationLook><PhysicalLocation/><LocationValues>{newEventQuery.eventCoordinates.locationName}</LocationValues></LocationLook>) : null}
-                        <GuestList>
-                            <SeeAll>See All</SeeAll>
-                            <GuestName>Guest List</GuestName>
-                            <GoingInterested>
-                                <PeopleGoInt>
-                                    <h4>1</h4>
-                                    <h5>GOING</h5>
-                                </PeopleGoInt>
-                                <PeopleGoInt>
-                                    <h4>{newEventQuery.quota === 0 ? "Quota" : newEventQuery.quota }</h4>
-                                    <h5>QUOTA</h5>
-                                </PeopleGoInt>
-                                <PeopleGoInt>
-                                    <h4>0</h4>
-                                    <h5>INTERESTED</h5>
-                                </PeopleGoInt>
-                            </GoingInterested>
-                        </GuestList>
-                    </LocationGuest>
-                </DownSide>
-            </Interrior>
-        </Model>
+            <div style={{'margin-top':'60px'}}>
+                <Model>
+                    <h4>Event Preview</h4>
+                    <Interrior>
+                        <Upperside>
+                            {newEventQuery.base64Image!=null ? <ImgCalendar>
+                                <Calendar><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>
+                                <Image src={newEventQuery.base64Image}></Image>
+                            </ImgCalendar> :<Calendar style={{'position':'static'}}><div className="up"></div><div className={"down"}><h1>{newEventQuery.startTime.getDate()}</h1></div></Calendar>}
+                            <Dates>{newEventQuery.startTime.toString()} - {newEventQuery.endTime.toString()}</Dates>
+                            <EventName>{newEventQuery.eventName === "" ? "Event Name" : newEventQuery.eventName}</EventName>
+                            {newEventQuery.eventCoordinates ? <EventType>{newEventQuery.eventCoordinates.eventLocationName !="" ? <p>{newEventQuery.eventCoordinates.eventLocationName}</p> : <p>Location</p>}</EventType> : null}
+                            {newEventQuery.eventType === "ONLINE" ? <EventType>Online</EventType> : null }
+                            <Creator>
+                                <Profile>
+                                    <ProfileIcon><BiUserCircle/><h4>NAME GOES HERE</h4></ProfileIcon>
+                                    <RightButtons >
+                                        {/*<Interested><AiOutlineStar/><h3>Interested</h3></Interested>*/}
+                                        <Going><AiOutlineCheckCircle/><h3>Going</h3></Going>
+                                    </RightButtons>
+                                </Profile>
+                            </Creator>
+                        </Upperside>
+                        <DownSide>
+                            <Details>
+                                <DetailsName>Details</DetailsName>
+                                <TimeLabel><GiSandsOfTime/> {duration}</TimeLabel>
+                                <CategoryLabel> {newEventQuery.eventCategory != "" && <p><AiOutlineInfoCircle/> {newEventQuery.eventCategory}</p>}</CategoryLabel>
+                                {newEventQuery.eventPrivacy != "disabled" ? (<Publicity><p>Privacy {newEventQuery.eventPrivacy != "ALL" ? <><AiFillLock/> (Locked) </> : <><AiFillUnlock/> (All Available)</>}  : {privacyValues.filter(value => value.name == newEventQuery.eventPrivacy)[0].icon} {privacyValues.filter(value => value.name == newEventQuery.eventPrivacy)[0].title}</p></Publicity>) : null}
+                                <EventDescription eventDescription={newEventQuery.eventDescription}/>
+                            </Details>
+                            <LocationGuest>
+                                {newEventQuery.eventCoordinates &&  newEventQuery.eventCoordinates.eventLocationName!="" ? (<LocationLook><PhysicalLocation eventCoordinates={newEventQuery.eventCoordinates}/><LocationValues>{newEventQuery.eventCoordinates.eventLocationName}</LocationValues></LocationLook>) : null}
+                                <GuestList>
+                                    <SeeAll>See All</SeeAll>
+                                    <GuestName>Guest List</GuestName>
+                                    <GoingInterested>
+                                        <PeopleGoInt>
+                                            <h4>1</h4>
+                                            <h5>GOING</h5>
+                                        </PeopleGoInt>
+                                        <PeopleGoInt>
+                                            <h4>{newEventQuery.quota === 0 ? "Quota" : newEventQuery.quota }</h4>
+                                            <h5>QUOTA</h5>
+                                        </PeopleGoInt>
+                                        <PeopleGoInt>
+                                            <h4>0</h4>
+                                            <h5>INTERESTED</h5>
+                                        </PeopleGoInt>
+                                    </GoingInterested>
+                                </GuestList>
+                            </LocationGuest>
+                        </DownSide>
+                    </Interrior>
+                </Model>
+            </div>
         </>
     )
 }

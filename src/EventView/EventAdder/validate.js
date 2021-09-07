@@ -10,8 +10,8 @@ export function validateDateName(values){
         errors.eventCategory = "Event category is required";
     }
 
-    if(values.eventPublicity==="disabled"){
-        errors.eventPublicity = "Event must have a publicity value";
+    if(values.eventPrivacy==="disabled"){
+        errors.eventPrivacy = "Event must have a publicity value";
     }
 
     if(values.quota < 1){
@@ -35,15 +35,49 @@ function validURL(str) {
 export function validateLocation(values){
     let errors = {};
 
-    if(values.eventType === "physical" && values.eventCoordinates.eventLocationName ==="" ){
+    if(values.eventType === "PHYSICAL" && values.eventCoordinates.eventLocationName ==="" ){
         errors.eventCoordinates = "You must enter a location";
     }
 
-    if(values.eventType === "online" && !validURL(values.eventUrl)){
+    if(values.eventType === "ONLINE" && !validURL(values.eventUrl)){
         errors.eventUrl = "Enter a valid url";
 
     }
 
     return errors;
 
+}
+
+export function validateQuestions(values){
+    let errors = {};
+
+    if(values.questions.length !==0){
+        errors.questions = [];
+        let check = false;
+        values.questions.forEach((element,index) => {
+            if(element.length === 0){
+                check=true;
+                errors.questions.push("Enter the question");
+            }else{
+                errors.questions.push(null);
+            }
+        });
+        if(!check){
+            errors = {};
+        }
+    }   
+
+    return errors;
+}
+
+export function validateLastTime(values){
+    let errors = {};
+
+    const now = new Date();
+
+    if(values.startTime < now){
+        errors.startTime = "Enter a valid date.";
+    }
+
+    return errors;
 }

@@ -2,11 +2,12 @@ import React,{useState} from 'react';
 import {NavbarData} from "./NavbarData";
 import { NavbarmidData } from './NavbarmidData';
 import * as SiIcons from 'react-icons/si';
-// import "./Navbar.css";
+import "./Navbar.css";
 import NavItem from './NavItem';
-import NavmidItem from './NavmidItem';
-import { Link } from "react-router-dom";
+import NavMidItem from './NavMidItem';
+import {Link, NavLink} from "react-router-dom";
 import styled from 'styled-components';
+import {IconContext} from "react-icons";
 
 const NavbarLink = styled(Link)`
     margin:2px;
@@ -30,23 +31,28 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={"navbar"}>
-                <NavbarLink to={'/'}><SiIcons.SiReactos/></NavbarLink>
-                <ul className={'navbar-mid'}>
-                    {NavbarmidData.map((value,index) => {
-                        return(
-                            <NavmidItem key={index} item={value}/>
-                        );
-                    })}
-                </ul>
-                <ul className={'navbar-right'}>
-                    {NavbarData.map((value,index) => {
-                        return(
-                            <NavItem key={index} item={value}/>
-                        );
-                    })}
-                </ul>
-            </nav>
+        <IconContext.Provider value={{className:"upper-side-navigation-site-icon"}}>
+            <nav className={"upper-side-navigation"}>
+                    <NavLink className={"upper-side-navigation-site"} to={'/'}>
+                            <SiIcons.SiReactos color={"#1560bd"}/>
+                    </NavLink>
+                    {/*<ul className={'navbar-mid'}>*/}
+                    {/*    {NavbarmidData.map((value,index) => {*/}
+                    {/*        return(*/}
+                    {/*            <NavMidItem key={index} item={value}/>*/}
+                    {/*        );*/}
+                    {/*    })}*/}
+                    {/*</ul>*/}
+                    <ul className={'navbar-right'}>
+                        {NavbarData.map((value,index) => {
+                            return(
+                                <NavItem key={index} item={value}/>
+                            );
+                        })}
+                    </ul>
+                </nav>
+        </IconContext.Provider>
+
         </>
     );
 }

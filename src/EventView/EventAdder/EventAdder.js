@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SidebarChooseType from './SidebarChooseType';
 import SidebarDateName from './SidebarDateName';
 import AddEventTypes from './AddEventTypes';
-import {Types} from './AddEventData';
 import Location from './Location';
 import BlockPage from './BlockPage';
 import EventPreView from './EventPreView';
@@ -13,8 +11,12 @@ import Questions from './Questions';
 import QuestionsPreview from './QuestionsPreview';
 import Description from './Description';
 import ImageInput from './ImageInput';
-import { validateDateName, validateLocation } from './validate';
+import { validateDateName, validateLocation,validateQuestions } from './validate';
 import useForm from './useForm';
+import EventApi from '../API/EventApi';
+import {toast} from "react-toastify";
+import {useHistory} from "react-router-dom";
+import Navbar from "../../components/Navbar/Navbar";
 
 
 const Control = styled.div`
@@ -91,33 +93,38 @@ const SideBar = styled.div`
     position:relative;
     border-right: 1px solid #474a4d;
     background-color: #242526;
-    margin-top:60px;
-    height:100%;
     padding: 0;
+    padding-top:60px;
     z-index: 1;
-    
     gap:10px;
 `
 
 export default function EventAdder() {
 
+
+    const history = useHistory();
+
     const now = new Date();
 
-    const [newEventQuery,setNewEventQuery] = useState({eventName:"",
-    quota:0,
-    startTime:new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,now.getHours(),0),
-    endTime:new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,now.getHours()+3,0),
-    eventType:"",
-    eventPublicity:"disabled",
-    eventCategory:"",
-    eventDescription:"",
-    eventQuestions:[]
+    const eventApi = new EventApi();
+
+    const [newEventQuery,setNewEventQuery] = useState({
+        eventName:"",
+        quota:0,
+        startTime:new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,now.getHours(),0),
+        endTime:new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,now.getHours()+3,0),
+        eventType:"",
+        eventPrivacy:"disabled",
+        eventCategory:"",
+        eventDescription:"",
+        questions:[],
+        base64Image:null
     });
-    const validations = [validateDateName,validateLocation,null,null,null];
+    const validations = [validateDateName,validateLocation,null,validateQuestions,null];
     const [pageNumber,setPageNumber] = useState(0);
     const [isSubmitted,setIsSubmitted] = useState(false);
     const [isSubmitting,setIsSubmitting] = useState(false);
-
+    const [isLoading,setIsLoading] = useState(false);
 
     const setTrue = () => {
         setIsSubmitted(true);
@@ -127,19 +134,38 @@ export default function EventAdder() {
         setIsSubmitted(false);
     }
 
-    const {errors,handleChange,handleSubmit,handleWithKeyAndValue,handleType,handleQuestions} = useForm(pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,validations[pageNumber-1]);
+    const {errors,handleChange,handleSubmit,handleWithKeyAndValue,handleType} = useForm(pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,validations[pageNumber-1],setIsLoading);
 
-    const nextPage = () => {
-        if(pageNumber>0 && pageNumber<3){
+    const nextPage = async () => {
+        if(pageNumber>0 && pageNumber<5){
             handleSubmit();
             setIsSubmitting(true);
             if(isSubmitted){
                 setPageNumber(pageNumber+1);
                 setIsSubmitting(false);
             }
+        }else if(pageNumber === 5){
+            const response = await eventApi.createEvent(newEventQuery);
+
+            handleSuccess(response);
         }else{
             setPageNumber(pageNumber+1);
             if(pageNumber===0) setIsSubmitted(false);
+        }
+    }
+
+    const handleSuccess = (response) => {
+        toast.configure();
+
+        if(response!==null && response !== undefined){
+            if(response.messageType === "SUCCESS"){
+                toast.success(response.message);
+
+                history.push(`/events/event-page/${newEventQuery.eventId}`);
+
+            }else {
+                toast.error(response.message);
+            }
         }
     }
 
@@ -147,20 +173,21 @@ export default function EventAdder() {
         setPageNumber(pageNumber-1);
     }
 
-
     const Sidebar = [
         <SidebarChooseType/>,
         <SidebarDateName isSubmitting={isSubmitting} newEventQuery={newEventQuery} errors={errors} handleChange={handleChange}/>,
         <Location isSubmitting={isSubmitting} handleWithKeyAndValue={handleWithKeyAndValue} errors={errors} handleChange = {handleChange} newEventQuery={newEventQuery}/>,
-        <Description newEventQuery={newEventQuery} handleChange={handleChange}/>,
-        <Questions handleQuestions={handleQuestions}/>,
+        <Description newEventQuery={newEventQuery}  handleChange={handleChange}/>,
+        <Questions/>,
         <ImageInput handleWithKeyAndValue={handleWithKeyAndValue} newEventQuery={newEventQuery}/>]
     
     return (
-        <>
+        <><Navbar/>
             <Screen>
                 <SideBar>
-                    {Sidebar[pageNumber]}
+                    <div style={{'overflow-y':'auto','position':'relative','height':'700px'}}>
+                        {Sidebar[pageNumber]}
+                    </div>
                     {pageNumber>0 && <Control>
                     <div style={{'position':'relative'}}>
                         <BlockPage page={pageNumber}/>
@@ -173,8 +200,8 @@ export default function EventAdder() {
                 </SideBar>
                 {pageNumber===0 ? <AddEventTypes handleType={handleType} nextPage={nextPage}/>
                 : pageNumber===4 ? 
-                <QuestionsPreview handleQuestions={handleQuestions}/>
-                :<EventPreView newEventQuery={newEventQuery}/>}
+                <QuestionsPreview errors={errors} isSubmitting={isSubmitting} questions={newEventQuery.questions} handleWithKeyAndValue={handleWithKeyAndValue}/>
+                :<EventPreView newEventQuery={newEventQuery} isLoading={isLoading}/>}
             </Screen>
         </>
     )

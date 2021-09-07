@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 
 const AnimatedForm = styled.div`
 position:relative;
@@ -8,10 +7,10 @@ display:grid;
 height:3rem;
 
 
-.input{
+.testing{
+    box-shadow:none;
     border-radius:8px;
     border:1px solid #474a4d;
-    box-shadow: none;
 
     box-sizing:border-box;
     padding:1.25rem;
@@ -36,8 +35,8 @@ height:3rem;
 
 
 
-.input:focus ~ .string,
-.input:not(:placeholder-shown).input:not(:focus) ~ .string{
+.testing:focus ~ .string,
+.testing:not(:placeholder-shown).testing:not(:focus) ~ .string{
     color:rgba(90, 180, 255,1);
     top:0.2rem;
     font-size:0.8rem;
@@ -45,8 +44,8 @@ height:3rem;
 }
 
 
-.input:focus ~ .size,
-.input:not(:placeholder-shown).input:not(:focus) ~ .size{
+.testing:focus ~ .size,
+.testing:not(:placeholder-shown).testing:not(:focus) ~ .size{
     color:#fff;
     top:0.2rem;
     font-size:0.7rem;
@@ -56,17 +55,16 @@ height:3rem;
 
 `
 
-const DateSelectorForm = styled.form`
-display:grid;
-position:relative;
-height:3rem;
-gap:1.25rem;
+const DateSelectorForm = styled.div`
+    display:grid;
+    position:relative;
+    gap:1.25rem;
 `
 
 const DateSelector = styled.div`
 display:grid;
 position:relative;
-height:3rem;
+height:4rem;
 color:#fff;
 
 .startDate,.endDate{
@@ -185,45 +183,40 @@ const EventForm = styled.div`
 
 export default function SidebarDateName ({isSubmitting,errors,newEventQuery,handleChange}) {
 
-
-
     const createTodayValue = () => {
-        var date = new Date();
+        let date = new Date();
 
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
 
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
         if (hour<10) hour= "0" + hour;
         if (minutes<10) minutes = "0" + minutes;
 
-        var today = year + "-" + month + "-" + day +"T" + hour + ":" + minutes;     
+        let today = year + "-" + month + "-" + day +"T" + hour + ":" + minutes;
 
         return today;
     }
     
     const returnString = (value) => {
-        var date = value;
+        let date = value;
 
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        var hour = date.getHours();
-        var minutes = date.getMinutes();
-
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
 
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
         if (hour<10) hour= "0" + hour;
         if (minutes<10) minutes = "0" + minutes;
 
-        var stringOfDate = year + "-" + month + "-" + day +"T" + hour + ":" + minutes;
-
+        let stringOfDate = year + "-" + month + "-" + day +"T" + hour + ":" + minutes;
 
         return stringOfDate;
     }
@@ -239,13 +232,18 @@ export default function SidebarDateName ({isSubmitting,errors,newEventQuery,hand
             <EventForm>
                     <DateSelectorForm noValidate>
                         <AnimatedForm >
-                            <input style={isSubmitting && errors.eventName ? {'border':'1px solid red'} : null} type="text" id="eventName" name={"eventName"} className={"input"} value={newEventQuery.eventName} onChange={handleChange} autoComplete="off" maxLength={100} placeholder=" " required/>
+                            <input style={isSubmitting && errors.eventName ? {'border':'1px solid red'} : null} type="text" id="eventName" name={"eventName"} className={"testing"} value={newEventQuery.eventName} onChange={handleChange} autoComplete="off" maxLength={100} placeholder=" " required/>
                             <label style={isSubmitting && errors.eventName ? {'color':'red'} : null} htmlFor={"eventName"} className={"string"}>Event Name</label>
                             <label htmlFor={"eventName"} className={"size"}>{newEventQuery.eventName.length}/100</label>
                         </AnimatedForm>
                         <AnimatedForm>
-                            <input style={isSubmitting && errors.quota ? {'border':'1px solid red'} : null} type="number" name={"quota"} id="quota" className={"input"} value={newEventQuery.quota} onChange={handleChange} autoComplete="off" placeholder="" min={1} required/>
+                            <input style={isSubmitting && errors.quota ? {'border':'1px solid red'} : null} type="number" name={"quota"} id="quota" className={"testing"} value={newEventQuery.quota} onChange={handleChange} autoComplete="off" placeholder="" min={1} required/>
                             <label style={isSubmitting && errors.quota ? {'color':'red'} : null} htmlFor={"quota"} className={"string"}>Event Quota</label>
+                        </AnimatedForm>
+                        <AnimatedForm>
+                            <input style={isSubmitting && errors.eventCategory ? {'border':'1px solid red'} : null} type="text" name={"eventCategory"} id="eventCategory" className={"testing"} value={newEventQuery.eventCategory} onChange={handleChange} maxLength={25} autoComplete="off" placeholder=" "/>
+                            <label style={isSubmitting && errors.eventCategory ? {'color':'red'} : null} htmlFor={"eventCategory"} className={"string"}>Event Category</label>
+                            <label htmlFor={"eventCategory"} className={"size"}>{newEventQuery.eventCategory.length}/25</label>
                         </AnimatedForm>
                         <DateSelector>
                             <input style={isSubmitting && errors.startTime ? {'color':'red','border':'1px solid red'} : null} type={"datetime-local"} name={"startTime"} id="startTime" onChange={handleChange} value={returnString(newEventQuery.startTime)} className={"startDate"} min={createTodayValue()} required/>
@@ -256,20 +254,23 @@ export default function SidebarDateName ({isSubmitting,errors,newEventQuery,hand
                             <label style={isSubmitting && errors.endTime ? {'color':'red'} : null} htmlFor={"endTime"} className={"stringEnd"}>Event End Date</label>
                         </DateSelector>
                         <Box>
-                            <select style={isSubmitting && errors.eventPublicity ? {'color':'red','border':'1px solid red'} : null} id={"eventPublicity"} name={"eventPublicity"} value={newEventQuery.eventPublicity} onChange={handleChange} required>
-                                <option disabled value={"disabled"}>Choose publicity</option>
-                                <option value="department">Department</option>
-                                <option value="company">Company</option>
+                            <select style={isSubmitting && errors.eventPrivacy ? {'color':'red','border':'1px solid red'} : null} id={"eventPrivacy"} name={"eventPrivacy"} value={newEventQuery.eventPrivacy} onChange={handleChange} required>
+                                <option disabled value={"disabled"}>Choose who is this event for</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">Human Resources</option>
+                                <option value="PRODUCTION">Production</option>
+                                <option value="RND">Research {"&"} Development</option>
+                                <option value="PURCHASING">Purchasing</option>
+                                <option value="MARKETING">Marketing</option>
+                                <option value="FINANCES">Finances</option>
+                                <option value="ADMIN">Administrator</option>
+                                <option value="SERVICE">Service</option>
+                                <option value="ALL">Company</option>
                             </select>
                         </Box>
-                        <AnimatedForm>
-                            <input style={isSubmitting && errors.eventCategory ? {'border':'1px solid red'} : null} type="text" name={"eventCategory"} id="eventCategory" className={"input"} value={newEventQuery.eventCategory} onChange={handleChange} maxLength={25} autoComplete="off" placeholder=" "/>
-                            <label style={isSubmitting && errors.eventCategory ? {'color':'red'} : null} htmlFor={"eventCategory"} className={"string"}>Event Category</label>
-                            <label htmlFor={"eventCategory"} className={"size"}>{newEventQuery.eventCategory.length}/25</label>
-                        </AnimatedForm>
                     </DateSelectorForm>
             </EventForm>
-            </>
+        </>
     );
 }
 

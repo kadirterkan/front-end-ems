@@ -1,0 +1,56 @@
+.questions-page{
+    margin-left:320px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.questions-page-interior{
+    margin-top:60px;
+    height: 600px;
+    width: 600px;
+    border-radius: 8px;
+    color: white;
+    background-color: #242526;
+    padding: 1rem;
+}
+
+.question-page-for-answer{
+    display: grid;
+    gap:1rem;
+}
+
+.questions-page .edit-description-input{
+}
+
+.questions-page .answered-join-buttons{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.questions-page .cancel-join-button{
+    padding-inline:3rem;
+    padding-block: 1rem;
+    background-color: #484a4d;
+    border: none;
+    border-radius: 8px;
+}
+
+.questions-page .cancel-join-button:hover{
+    filter: brightness(1.2);
+}
+
+.questions-page .answered-join-button{
+    padding-inline:3rem;
+    padding-block: 1rem;
+    background-color: #1560bd;
+    border: none;
+    border-radius: 8px;
+}
+
+.questions-page .answered-join-button:hover{
+    filter: brightness(1.2);
+}

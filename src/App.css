@@ -7,6 +7,10 @@
   font-family:'Lato', sans-serif;
 }
 
+body{
+    background-color:#151616;
+}
+
 .home, .events ,.your-events {
   display: flex;
   height: 90vh;
@@ -26,4 +30,8 @@
 
 a {
   text-decoration: none;
+}
+
+html {
+    overflow-y:scroll;
 }

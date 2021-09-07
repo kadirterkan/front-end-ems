@@ -132,39 +132,32 @@ const DeleteButton = styled(AiOutlineDelete)`
     }
 `
 
-export default function QuestionsPreview({handleQuestions}) {
-
-
-    const [questions,setQuestions] = useState([]);
-
+export default function QuestionsPreview({errors,isSubmitting,questions,handleWithKeyAndValue}) {
 
     const addQuestion = () => {
+        let newModel = questions;
 
-        setQuestions(oldArray => [...oldArray,""]);
+        newModel.push("");
 
+        handleWithKeyAndValue("questions",newModel);
     }
 
-    const onSubmit = () => {
-
-        handleQuestions(questions);
-    }
-
-    
-
-    const deleteLine = (index) => {
+    const deleteQuestion = (index) => {
         let newModel = questions;
 
         newModel.splice(index,1);
 
-        setQuestions([...newModel]);
+        console.log(newModel);
+
+        handleWithKeyAndValue("questions",newModel);
     }
 
-    const onChange = (event,index) => {
+    const handleQuestion = (event,index) => {
         let newModel = questions;
 
         newModel[index] = event.target.value;
 
-        setQuestions([...newModel]);
+        handleWithKeyAndValue("questions",newModel);
     }
 
     return (
@@ -174,15 +167,16 @@ export default function QuestionsPreview({handleQuestions}) {
                 <InterriorModel>
                     <Interrior>
                     <QuestionGrid>
-                        {questions.map((value,index) => (
+                        {questions.map((value,index) =>{
+                            return (
                             <div style={{'display':'flex','gap':'1rem','align-items':'center'}}>
                                 <AnimatedForm>
-                                    <input type="text" id={"question"+index} name={"question"+index} value={value} className={"input"} onChange={(event) => onChange(event,index)} autoComplete="off" placeholder=" "/>
+                                    <input style={isSubmitting && errors.questions && errors.questions[index] != null ? {'border':'1px solid red'} : null} type="text" id={"question"+index} name={"question"+index} value={questions[index]} className={"input"} onChange={(event) => handleQuestion(event,index)} autoComplete="off" placeholder=" "/>
                                     <label htmlFor={"question"+index} className={"string"}>Question {index+1}</label>
                                 </AnimatedForm>
-                                <DeleteButton onClick={() => deleteLine(index)}/>
+                                <DeleteButton onClick={() => deleteQuestion(index)}/>
                             </div>
-                        ))}
+                        )})}
                         <AddButton onClick={addQuestion}>+ Add Question</AddButton>
                     </QuestionGrid>
                     </Interrior>

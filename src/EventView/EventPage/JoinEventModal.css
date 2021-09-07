@@ -1,0 +1,28 @@
+.join-event-page{
+    background-color: #242526;
+}
+
+.join-event-view{
+    position:relative;
+    margin:5rem;
+    border-radius:8px;
+    background-color:#484a4d;
+    color:#fff;
+    padding:1rem;
+    border:1px solid #474a4d;
+}
+
+.question-list-for-answer{
+    display:grid;
+    overflow-y: paged-y-controls;
+
+}
+
+.question-template{
+    padding: 1rem;
+    border: 1px solid #474a4d;
+}
+
+.question-text{
+
+}

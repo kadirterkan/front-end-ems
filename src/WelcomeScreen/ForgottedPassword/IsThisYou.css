@@ -1,0 +1,73 @@
+
+
+.is-this-you-page{
+    width: 100%;
+    padding: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.is-this-you-page .is-this-you-get-email-box{
+    width:500px;
+    height:300px;
+    background-color: white;
+    border-radius: 8px;
+    display: grid;
+    box-shadow: 0 0 10px grey;
+}
+
+.is-this-you-page .is-this-you-title{
+    padding: 1.25rem;
+    border-bottom: 1px solid grey;
+    height: 60px;
+}
+
+.is-this-you-page .is-this-you-info{
+    position: relative;
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 1rem;
+    height: 10rem;
+    gap:1rem;
+    border-bottom: 1px solid grey;
+}
+
+.is-this-you-page .is-this-you-buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+    padding: 1rem;
+}
+
+.is-this-you-page .is-this-you-back-button{
+    padding-inline: 1.5rem;
+    padding-block: .7rem;
+    background-color: lightgray;
+    color: #151616;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 800ms;
+}
+
+.is-this-you-page .is-this-you-back-button:hover{
+    filter: brightness(0.9);
+}
+
+.is-this-you-page .is-this-you-next-button{
+    padding-inline: 1.5rem;
+    padding-block: .7rem;
+    background-color: #1560bd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.is-this-you-page .is-this-you-next-button:hover{
+    filter: brightness(1.2);
+}

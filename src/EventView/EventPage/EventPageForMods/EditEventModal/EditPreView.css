@@ -1,0 +1,93 @@
+.edit-preview-model{
+    position:relative;
+    margin-left: 5rem;
+    margin-top: 2rem;
+    margin-right: 5rem;
+    height: 600px;
+    border-radius:8px;
+    background-color:#242526;
+    color:#fff;
+    padding:1rem;
+    border:1px solid #474a4d;
+}
+
+.edit-preview-interior{
+    position:absolute;
+    overflow-x:hidden;
+    overflow-y:auto;
+    height:90%;
+    width:97%;
+    margin-top:1rem;
+    background:none;
+    border-radius:8px;
+    border:1px solid #474a4d;
+    display:grid;
+}
+
+.edit-preview-upper-side{
+    display:grid;
+}
+
+.edit-preview-image-calender{
+    position: relative;
+    display:flex;
+    max-height: 400px;
+    justify-content: space-between;
+}
+
+.edit-preview-calendar{
+    height:100px;
+}
+
+.edit-preview-image-placement{
+    display: grid;
+    height: 100px;
+}
+
+.edit-preview-event-type-join{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color:#fff;
+}
+
+.edit-preview-profile-box{
+    filter:brightness(0.7);
+    margin: 0.4rem 0.7rem 1rem;
+    padding:0.5rem;
+    background:#686868;
+    border-radius:8px;
+    border:none;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    gap:2rem;
+}
+
+.edit-preview-profile-place{
+    display:grid;
+    justify-content:space-between;
+    grid-template-columns:auto auto;
+    gap:2rem;
+}
+
+.edit-preview-down-side{
+    width: 100%;
+    background-color:#151616;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.edit-preview-event-components{
+    position: relative;
+    display:grid;
+    grid-template-columns: 60% 40%;
+}
+
+.edit-preview-left{
+    display:grid;
+}
+
+.edit-preview-right{
+    display: grid;
+}

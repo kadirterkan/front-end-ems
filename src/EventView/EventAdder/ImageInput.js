@@ -54,7 +54,7 @@ justify-content:center;
 `
 
 
-export default function ImageInput({newEventQuery,handleWithKeyAndValue}) {
+export default function ImageInput({handleWithKeyAndValue}) {
 
     const [eventImage,setEventImage] = useState(null);
 
@@ -87,8 +87,8 @@ export default function ImageInput({newEventQuery,handleWithKeyAndValue}) {
                         <h6>-</h6>
                         <NavLink to={'#'}><h6>Create Event</h6></NavLink>
                 </SidebarHeaderLinks>
-                <SidebarMenuName>Event Description</SidebarMenuName>
-                <SidebarMenu>Enter your events description to let people know more about your event</SidebarMenu>
+                <SidebarMenuName>Event Image</SidebarMenuName>
+                <SidebarMenu>Give your event an image</SidebarMenu>
                 <InputForm>
                     <input type="file" className={"input"} onChange={imageUploadHandler}></input>
                 </InputForm>

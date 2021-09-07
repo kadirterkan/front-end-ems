@@ -1,0 +1,35 @@
+.edit-description-sidebar{
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.edit-description-sidebar-menu-name{
+    color:#fff;
+}
+
+.edit-description-sidebar-menu-desc{
+    color:#fff;
+}
+
+.edit-description-animated-form{
+    position:relative;
+    display:grid;
+    height:4rem;
+}
+
+.edit-description-input{
+    width: 100%;
+    height:70px;
+    padding: 1.5rem;
+    border-radius: 5px;
+    outline: none;
+    resize:none;
+    background: none;
+    border: 1px solid #474a4d;
+    color: #ffffff;
+}
+
+.edit-description-input::-webkit-scrollbar{
+    width: 0;
+}

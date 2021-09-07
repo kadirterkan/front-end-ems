@@ -1,17 +1,18 @@
 import React,{useState,useEffect} from 'react';
 import {NavLink} from 'react-router-dom';
 import styled from 'styled-components';
+import './SubMenu.css';
+import {IconContext} from "react-icons";
 
 const SidebarLink = styled(NavLink)`
     gap:5px;
-    width:98%;
+    width:100%;
     display:flex;
     color:#e1e9fc;
     align-items:center;
-    margin:5px;
     padding:10px;
     list-style:none;
-    height:60px;
+    height:4rem;
     text-decoration:none;
     font-size:18px;
 
@@ -38,7 +39,6 @@ const DropdownLink = styled(NavLink)`
     text-decoration:none;
     color:#fff;
     font-size:18px;
-    margin-left:20px;
     padding:10px;
     border-radius:8px;
 
@@ -100,13 +100,14 @@ const SidebarSubm = styled(NavLink)`
     }
 `;
 
-
-/* TODO: FIX THE WEIRD ANIMATION */
-
-
 export function Submenu({item}){
 
-    const [subnav,setSubnav] = useState(false);
+    const [subnav,setSubnav] = React.useState(false);
+    const [isActive,setIsActive] = React.useState(false);
+
+    const onChange = (match) => {
+        setIsActive(match);
+    }
 
     const showSubnav = () => {
         setSubnav(!subnav);
@@ -115,25 +116,35 @@ export function Submenu({item}){
     return(
         <>
 
-            <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-                <NavbarLabel>{item.icon}</NavbarLabel>
-                <SidebarLabel>{item.title}</SidebarLabel>
-            <span>
-                {item.subNav && subnav ? 
-                item.iconOpened 
-                : item.subNav 
-                ? item.iconClosed
-                : null}
-            </span>
-        </SidebarLink>
-        {subnav && item.subNav.map((value,index) => {
-            return(
-            <DropdownLink key={index} to={value.path}>
-                    <NavbarLabel>{value.icon}</NavbarLabel>
-                    <SidebarLabel>{value.title}</SidebarLabel>
-            </DropdownLink>
-            );
-        })}
+            <NavLink className={"side-bar-navigate-links"} activeClassName={!item.subNav && "side-bar-navigate-links-active"} to={item.path} onClick={item.subNav && showSubnav}>
+                <div className={"side-bar-navigate-links-icon"}>
+                    <IconContext.Provider value={{className:"side-bar-navigate-links-labels"}}>
+                    {item.icon}
+                    </IconContext.Provider>
+                </div>
+                <span className={"side-bar-navigate-links-labels-title"}>{item.title}</span>
+                <span>
+                    {item.subNav && subnav ?
+                    item.iconOpened
+                    : item.subNav
+                    ? item.iconClosed
+                    : null}
+                </span>
+            </NavLink>
+            <div className={"side-bar-navigate-sub-menu"}>
+                {subnav && item.subNav.map((value,index) => {
+                    return(
+                    <NavLink className={"side-bar-navigate-links"} activeClassName={"side-bar-navigate-links-active"} key={index} to={value.path}>
+                        <div className={"side-bar-navigate-links-icon"}>
+                            <IconContext.Provider value={{className:"side-bar-navigate-links-labels"}}>
+                                {value.icon}
+                            </IconContext.Provider>
+                        </div>
+                        <span className={"side-bar-navigate-links-labels-title"}>{value.title}</span>
+                    </NavLink>
+                    );
+                })}
+            </div>
         </>
     );
 }

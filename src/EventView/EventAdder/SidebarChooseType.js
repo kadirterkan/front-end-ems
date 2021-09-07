@@ -100,7 +100,7 @@ export default function SidebarChooseType(){
                 <h6>-</h6>
                 <NavLink to={'#'}><h6>Create Event</h6></NavLink>
             </div>
-            <h1 className={'nav-menu-name'}>Create Event</h1>
+            <h1 style={{'color':'white'}}>Create Event</h1>
             <EventChooseDiv>
                 <NavbarLabel><RiUser3Fill/></NavbarLabel>
                 <Diviser>

@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import React,{ useState } from 'react';
+import React from 'react';
 
+export default function MainPage(props){
 
-class MainPage extends React.Component {
+    console.log("TEST?");
 
-
-
-    render(
-        
+    return(
+        <div>
+            MAIN PAGE
+        </div>
     )
 }

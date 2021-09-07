@@ -1,10 +1,11 @@
 import {useState,useEffect} from 'react';
 
 
-const useForm = (pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,validate) => {
+const useForm = (pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,validate,setIsLoading) => {
     const [errors,setErrors] = useState({});
 
     const handleChange = event => {
+        setIsLoading(true);
         const {name,value} = event.target;
         let input;
         if(name ==="startTime" ||name === "endTime"){
@@ -17,33 +18,52 @@ const useForm = (pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,vali
         setNewEventQuery({
             ...newEventQuery,
             [name]:input});
+        setIsLoading(false);
     };
-
     
 
     const handleWithKeyAndValue = (key,value) => {
+        setIsLoading(true);
         setNewEventQuery({
             ...newEventQuery,
             [key]:value
         });
+        setIsLoading(false);
     }
 
     const handleType = (value) => {
-        if(value==="physical"){
+        setIsLoading(true);
+        if(value==="PHYSICAL"){
             setNewEventQuery({
-                ...newEventQuery,
+                eventName:newEventQuery.eventName,
+                quota:newEventQuery.quota,
+                startTime:newEventQuery.startTime,
+                endTime:newEventQuery.endTime,
+                eventPrivacy:newEventQuery.eventPrivacy,
+                eventCategory:newEventQuery.eventCategory,
+                eventDescription:newEventQuery.eventDescription,
+                questions:newEventQuery.questions,
+                base64Image:newEventQuery.base64Image,
                 eventCoordinates:{lat:0,lng:0,eventLocationName:""},
-                eventType:"physical"
+                eventType:"PHYSICAL"
             });
         }else{
             setNewEventQuery({
-                ...newEventQuery,
+                eventName:newEventQuery.eventName,
+                quota:newEventQuery.quota,
+                startTime:newEventQuery.startTime,
+                endTime:newEventQuery.endTime,
+                eventPrivacy:newEventQuery.eventPrivacy,
+                eventCategory:newEventQuery.eventCategory,
+                eventDescription:newEventQuery.eventDescription,
+                questions:newEventQuery.questions,
+                base64Image:newEventQuery.base64Image,
                 eventUrl:"",
-                eventType:"online"
+                eventType:"ONLINE"
             });
         }
+        setIsLoading(false);
     }
-
 
     useEffect(
         () => {
@@ -63,8 +83,8 @@ const useForm = (pageNumber,newEventQuery,setNewEventQuery,setTrue,setFalse,vali
     },[errors]);
 
     const handleSubmit = () => {
-        if(validate[pageNumber-1]!=null){
-            setErrors(validate[pageNumber-1](newEventQuery));
+        if(validate!=null){
+            setErrors(validate(newEventQuery));
         }
     }
 

@@ -1,0 +1,49 @@
+.special-nav-bar-for-login{
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 10px grey;
+    padding-inline:1rem;
+}
+
+.special-nav-bar-for-login .special-nav-bar-for-login-left{
+}
+
+.special-nav-bar-for-login .special-nav-bar-left-icon{
+    color: #1560bd;
+    height: 40px;
+    width: 40px;
+}
+
+.special-nav-bar-for-login .special-nav-bar-for-login-right{
+}
+
+.special-nav-bar-for-login .special-nav-bar-for-login-inputs{
+    display: flex;
+    gap: 1rem;
+}
+
+.special-nav-bar-for-login .standard-input{
+    height: 2.5rem;
+}
+
+.special-nav-bar-for-login .standard-login-button{
+    border: none;
+    border-radius: 8px;
+    background-color: #1560bd;
+    color: white;
+    padding-inline: 1rem;
+    padding-block: .5rem;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.special-nav-bar-for-login .standard-login-button:hover{
+    filter: brightness(1.2);
+}

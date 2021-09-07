@@ -1,0 +1,138 @@
+.edit-location-input-values{
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.edit-location-sidebar-menu-name{
+    color:#fff;
+}
+
+.edit-location-sidebar-menu-desc{
+    color:#fff;
+}
+
+.edit-location-types{
+    background-color: white;
+}
+
+.edit-location-event-type-switcher{
+    width: 12rem;
+    height: 3rem;
+    padding-inline: 1rem;
+    padding-block: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:none;
+    background-color: #474a4d;
+    color: white;
+    border-radius: 8px;
+    gap: 0.5rem;
+}
+
+.edit-location-event-type-switcher:hover{
+    filter: brightness(1.2);
+}
+
+.edit-location-animated-form{
+    position:relative;
+    display:grid;
+    height:4rem;
+    color:black;
+}
+
+.edit-location-input{
+    border-radius:8px;
+    border:1px solid #474a4d;
+    box-shadow: none;
+    box-sizing:border-box;
+    padding:1.5rem;
+    background:none;
+    color:#fff;
+}
+
+.edit-location-string{
+    position:absolute;
+    left:1rem;
+    padding:0 0.5rem;
+    color:#fff;
+    cursor:text;
+    transition: 200ms;
+    top:1.20rem;
+}
+
+.size{
+    position:absolute;
+    visibility:hidden;
+}
+
+.edit-location-input:focus ~ .edit-location-string,
+.edit-location-input:not(:placeholder-shown).edit-location-input:not(:focus) ~ .edit-location-string{
+    color:rgba(90, 180, 255,1);
+    top:0.2rem;
+    font-size:0.8rem;
+    left:0.8rem;
+}
+
+.edit-location-input:focus ~ .size,
+.edit-location-input:not(:placeholder-shown).edit-location-input:not(:focus) ~ .size{
+    color:#fff;
+    top:0.2rem;
+    font-size:0.7rem;
+    right:5px;
+    visibility:visible;
+}
+
+.modal-buttons{
+    margin-top:2rem;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:1rem;
+}
+
+.cancel-location-button{
+    border:none;
+    color:#fff;
+    padding:1rem;
+    border-radius:8px;
+    height:2rem;
+    background-color:#686868;
+    transition:800ms;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+.cancel-location-button:hover{
+    filter:brightness(1.2);
+}
+
+.submit-location-button{
+    border:none;
+    color:#fff;
+    border-radius:8px;
+    padding:1rem;
+    height:2rem;
+    background-color:#1560bd;
+    transition:800ms;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+}
+
+.submit-location-button:hover{
+    filter:brightness(1.2);
+}
+
+.edit-location-auto-complete{
+
+}
+
+.edit-location-auto-complete-location{
+    display: grid;
+    grid-template-columns: 75% 5% 20%;
+    justify-content: center;
+    align-items: center;
+}

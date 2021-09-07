@@ -29,7 +29,8 @@ color:black;
 
 
 .input{
-    
+    border-radius:8px;
+    border:1px solid #474a4d;
     box-shadow: none;
     box-sizing:border-box;
     padding:1.5rem;
@@ -191,14 +192,13 @@ export default function Location({isSubmitting,errors,handleWithKeyAndValue,hand
 
     const openModel = () => setShowModel(!showModel);
 
-    const onPhysicalLocationEnter = (mapValue) => {
+    const onPhysicalLocationEnter = async (mapValue) => {
 
         let eventCoordinates = {lat:0,lng:0,eventLocationName:""};
 
-        geocodeByPlaceId(mapValue.value.place_id)
+        await geocodeByPlaceId(mapValue.value.place_id)
             .then(results => getLatLng(results[0]))
             .then(({lat,lng}) => {
-                setValue({lat:lat,lng:lng});
                 eventCoordinates.lat=lat;
                 eventCoordinates.lng=lng;
             });
@@ -245,7 +245,7 @@ export default function Location({isSubmitting,errors,handleWithKeyAndValue,hand
 
 
         const [marker,setMarker] = useState(null);
-        const [temporaryValue,setTemporaryValue] = useState({...center,eventLocationName:""});
+        const [temporaryValue,setTemporaryValue] = useState({...newEventQuery.eventCoordinates});
 
         const saveModel = () => {
             handleWithKeyAndValue("eventCoordinates",temporaryValue);
@@ -320,7 +320,7 @@ export default function Location({isSubmitting,errors,handleWithKeyAndValue,hand
             </div>
             <h5>Location {temporaryValue.lat}  {temporaryValue.lng}</h5>
             <AnimatedForm style={{'margin-top':'1rem'}}>
-                <input type="text" id="locationName" name={"locationName"} className={"input"} value={newEventQuery.eventCoordinates.eventLocationName ==="" ? temporaryValue.eventLocationName : newEventQuery.eventCoordinates.eventLocationName} onChange={onLocationNameEnter} placeholder=" "/>
+                <input type="text" id="locationName" name={"locationName"} className={"input"} value={temporaryValue.eventLocationName} onChange={onLocationNameEnter} placeholder=" "/>
                 <label htmlFor={"locationName"} className={"string"}>Location Name</label>
             </AnimatedForm>
             <Buttons>
@@ -341,8 +341,7 @@ export default function Location({isSubmitting,errors,handleWithKeyAndValue,hand
                 <h6>-</h6>
                 <NavLink to={'#'}><h6>Create Event</h6></NavLink>
             </SidebarHeaderLinks>
-            
-                {newEventQuery.eventType === "physical" ? 
+                {newEventQuery.eventType === "PHYSICAL" ? 
                 <> 
                     <SidebarMenuName>Event Physical Location</SidebarMenuName>
                     <SidebarMenu>Enter your events location from the map</SidebarMenu>
@@ -351,12 +350,12 @@ export default function Location({isSubmitting,errors,handleWithKeyAndValue,hand
                     </div>
                 </> :
                 <>
-                    <SidebarMenuName>Event Physical Location</SidebarMenuName>
-                    <SidebarMenu>Enter your events location from the map</SidebarMenu>
+                    <SidebarMenuName>Event Link</SidebarMenuName>
+                    <SidebarMenu>Enter your events url</SidebarMenu>
                     <div className={"locationTypes"}>
                         <div>
                             <AnimatedForm>
-                                <input style={isSubmitting && errors.eventUrl ? {'border':'1px solid red'} : null} type="text" id="eventUrl" name={"eventUrl"} className={"input"} value={newEventQuery.eventUrl} onChange={handleChange} autocomplete="off" placeholder=" "/>
+                                <input style={isSubmitting && errors.eventUrl ? {'border':'1px solid red'} : null} type="text" id="eventUrl" name={"eventUrl"} className={"input"} value={newEventQuery.eventUrl} onChange={handleChange} autoComplete="off" placeholder=" "/>
                                 <label style={isSubmitting && errors.eventUrl ? {'color':'red'} : null} htmlFor={"eventUrl"} className={"string"}>Event Link</label>
                             </AnimatedForm>
                         </div>

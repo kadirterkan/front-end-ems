@@ -1,4 +1,3 @@
-import { CSSTransition } from 'react-transition-group';
 import React,{useState} from 'react';
 import { Link } from "react-router-dom";
 import './Navbar.css';
@@ -36,14 +35,12 @@ const MenuItem = styled(Link)`
 export default function DropdownMenu({subNav,open}){
     
     return(
-        // <CSSTransition in={open} timeout={500} className={"menu-primary"}>
-            <Menu>
-                {subNav.map((value,index) => {
-                    return(
-                        <MenuItem key={index} to={value.path}>{value.title}</MenuItem>
-                    );
-                })}
-            </Menu>
-        // </CSSTransition>    
+        <Menu>
+            {subNav.map((value,index) => {
+                return(
+                    <MenuItem key={index} to={value.path}>{value.title}</MenuItem>
+                );
+            })}
+        </Menu>
         );
 }

@@ -1,9 +1,12 @@
 import axios from "axios";
-import toast from "toast";
-
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default class LoginApi{
+    constructor() {
+        toast.configure();
+    }
 
     responseFromServerToast(reason) {
         if (reason.response.status === 400) {
@@ -19,7 +22,17 @@ export default class LoginApi{
 
 
     async userLogin(userLoginModel) {
-        return axios.post("/web/api/login",userLoginModel)
+        return axios.post("/user-login",userLoginModel)
+            .then((value) => {
+                return value.data;
+            })
+            .catch((reason) => {
+                this.responseFromServerToast(reason);
+            });
+    }
+
+    async modLogin(modLoginModel){
+        return axios.post("/mod-login",modLoginModel)
             .then((value) => {
                 return value.data;
             })

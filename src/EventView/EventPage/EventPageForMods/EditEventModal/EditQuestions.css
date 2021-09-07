@@ -1,0 +1,13 @@
+.edit-questions-sidebar{
+    padding: 1rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.edit-description-sidebar-menu-name{
+    color:#fff;
+}
+
+.edit-description-sidebar-menu-desc{
+    color:#fff;
+}
