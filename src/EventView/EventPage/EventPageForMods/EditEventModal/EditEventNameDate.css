@@ -1,0 +1,142 @@
+.edit-name-sidebar-menu-name{
+    color:#fff;
+}
+
+.edit-name-sidebar-menu-desc{
+    color:#fff;
+}
+
+.edit-name-event-form-div{
+    display:grid;
+    padding:1rem;
+    gap:1rem;
+}
+
+.edit-name-event-form{
+    display:grid;
+    position:relative;
+    height:3rem;
+    gap:1.25rem;
+}
+
+.edit-name-animated-form{
+    position:relative;
+    display:grid;
+    height:4rem;
+}
+
+.edit-name-input{
+    box-shadow:none;
+    border-radius:8px;
+    border:1px solid #474a4d;
+
+    box-sizing:border-box;
+    padding:1.25rem;
+    background:none;
+    color:#fff;
+}
+
+.edit-name-string{
+    position:absolute;
+    left:1rem;
+    padding:0 0.5rem;
+    color:#fff;
+    cursor:text;
+    transition: 200ms;
+    top:1.20rem;
+}
+
+
+.edit-name-size{
+    position:absolute;
+    visibility:hidden;
+}
+
+
+
+.edit-name-input:focus ~ .edit-name-string,
+.edit-name-input:not(:placeholder-shown).edit-name-input:not(:focus) ~ .edit-name-string{
+    color:rgba(90, 180, 255,1);
+    top:0.2rem;
+    font-size:0.8rem;
+    left:0.8rem;
+}
+
+
+.edit-name-input:focus ~ .edit-name-size,
+.edit-name-input:not(:placeholder-shown).edit-name-input:not(:focus) ~ .edit-name-size{
+    color:#fff;
+    top:0.2rem;
+    font-size:0.7rem;
+    right:5px;
+    visibility:visible;
+}
+
+.edit-name-date-selector{
+    display:grid;
+    position:relative;
+    height:4rem;
+    color:#fff;
+}
+
+.edit-name-startDate,.edit-name-endDate{
+    position:absolute;
+    width:100%;
+    border-radius:8px;
+    border:1px solid #474a4d;
+    box-sizing:border-box;
+    padding:1.25rem;
+    background:none;
+    color:#fff;
+}
+
+.edit-name-stringStart,.edit-name-stringEnd{
+    position:absolute;
+    left:0rem;
+    padding:0 0.5rem;
+    color:#fff;
+    cursor:text;
+    transition: 200ms;
+    top:1.20rem;
+}
+
+
+.edit-name-startDate:focus ~ .edit-name-stringStart,
+.edit-name-startDate:not(:placeholder-shown).edit-name-startDate:not(:focus) ~ .edit-name-stringStart{
+    color:rgba(90, 180, 255,1);
+    top:0.2rem;
+    font-size:0.8rem;
+    left:0;
+}
+
+.edit-name-endDate:focus ~ .edit-name-stringEnd,
+.edit-name-endDate:not(:placeholder-shown).edit-name-endDate:not(:focus) ~ .edit-name-stringEnd{
+    color:rgba(90, 180, 255,1);
+    top:0.2rem;
+    font-size:0.8rem;
+    left:0;
+}
+
+.edit-name-box{
+    position:relative;
+}
+
+.edit-name-selector{
+    color:#fff;
+    border-radius:8px;
+    border:1px solid #474a4d ;
+    background-color:#242526;
+    padding: 12px;
+    width: 100%;
+    font-size: 20px;
+    -webkit-appearance: button;
+    outline: none;
+}
+
+.edit-name-selector:focus{
+    color:rgba(90, 180, 255,1);
+}
+
+.edit-name-selector ~ option{
+    padding: 30px;
+}

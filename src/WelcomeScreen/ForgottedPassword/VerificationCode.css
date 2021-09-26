@@ -1,0 +1,89 @@
+
+
+.verification-code-page{
+    width: 100%;
+    padding: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verification-code-page .verification-code-get-email-box{
+    width:500px;
+    height:300px;
+    background-color: white;
+    border-radius: 8px;
+    display: grid;
+    box-shadow: 0 0 10px grey;
+}
+
+.verification-code-page .verification-code-title{
+    padding: 1.25rem;
+    border-bottom: 1px solid grey;
+    height: 60px;
+}
+
+.verification-code-page .verification-code-info{
+    position: relative;
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 1rem;
+    height: 10rem;
+    gap:1rem;
+    border-bottom: 1px solid grey;
+}
+
+.verification-code-page .verification-code-inputs-email{
+    display: grid;
+    gap: 1rem;
+}
+
+.verification-code-page .verification-code-inputs{
+    display: flex;
+    gap: 1rem;
+}
+
+.verification-code-page .standard-input{
+
+}
+
+
+
+.verification-code-page .verification-code-buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+    padding: 1rem;
+}
+
+.verification-code-page .verification-code-back-button{
+    padding-inline: 1.5rem;
+    padding-block: .7rem;
+    background-color: lightgray;
+    color: #151616;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 800ms;
+}
+
+.verification-code-page .verification-code-back-button:hover{
+    filter: brightness(1.2);
+}
+
+.verification-code-page .verification-code-next-button{
+    padding-inline: 1.5rem;
+    padding-block: .7rem;
+    background-color: #1560bd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.verification-code-page .verification-code-next-button:hover{
+    filter: brightness(1.2);
+}

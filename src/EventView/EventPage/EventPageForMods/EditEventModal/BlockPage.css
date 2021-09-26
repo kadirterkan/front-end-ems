@@ -1,0 +1,22 @@
+.edit-page-block-grid{
+    width:100%;
+    height:10px;
+    gap:2px;
+    display:grid;
+    grid-template-columns: repeat(4,auto);
+    transition:800ms;
+}
+
+.page-block-blue{
+    background-color:#1560bd;
+    height:10px;
+    border-radius:8px;
+    transition:800ms;
+}
+
+.page-block-grey{
+    background-color:#686868;
+    border-radius:8px;
+    height:10px;
+    transition:800ms;
+}

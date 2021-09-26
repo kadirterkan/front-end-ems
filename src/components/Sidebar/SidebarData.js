@@ -1,92 +1,79 @@
-import React from 'react';
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
-import * as MdIcons from "react-icons/md";
-import * as BsIcons from "react-icons/bs";
-import * as RiIcons from "react-icons/ri";
+import * as MdIcons from 'react-icons/md';
+import * as FaIcons from 'react-icons/fa';
+import * as HiIcons from 'react-icons/hi';
+import * as BiIcons from 'react-icons/bi';
+import * as GiIcons from 'react-icons/gi';
+import * as RiIcons from 'react-icons/ri';
+import * as IoIcons from 'react-icons/io';
 
-export const SidebarData = [
+
+export const sidebarEvents = [
     {
-        title: 'Home',
-        path: '/',
-        icon:<AiIcons.AiFillHome/>,
-        cName: 'nav-text',
+        title:'Main Page',
+        path:'/events/main-page/',
+        icon:<FaIcons.FaCalendarAlt/>
     },
     {
-        title: 'Events',
-        path: '#',
-        icon:<MdIcons.MdEvent className={'icon'}/>,
-        cName: 'nav-text',
-        iconClosed:<RiIcons.RiArrowDownSFill/>,
-        iconOpened:<RiIcons.RiArrowUpSFill/>,
-        subNav: [
-            {
-                title:'All Events',
-                path:'/events',
-                icon:<MdIcons.MdEventNote/>,
-                cName:'nav-text-sub'
-            },
-            {
-                title:'Created Events',
-                path:'/events/mod-events',
-                icon:<MdIcons.MdEventAvailable/>,
-                cName:'nav-text-sub'
-            },
-            {
-                title:'Statistics',
-                path:'/events/statistics',
-                icon:<AiIcons.AiOutlineBarChart/>,
-                cName:'nav-text-sub'
-            }
-        ]
+        title:'Going',
+        path:'/events/going-events',
+        icon:<BiIcons.BiCalendarCheck/>
     },
     {
-        title: 'Users',
-        path: '/users',
-        icon:<BsIcons.BsFillPeopleFill/>,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Support',
-        path: '/support',
-        icon:<IoIcons.IoMdHelpCircle/>,
-        cName: 'nav-text'
+        title:'Past Events',
+        path:'/events/past-events',
+        icon:<GiIcons.GiBackwardTime/>
     }
+    //
+    // {
+    //     title:'My Events',
+    //     path:'#',
+    //     icon:<FaIcons.FaUserAlt/>,
+    //     iconClosed:<RiIcons.RiArrowDownSLine/>,
+    //     iconOpened:<RiIcons.RiArrowUpSLine/>,
+    //     subNav:[
+    //         {
+    //             title:'Going',
+    //             path:'/going-events',
+    //             icon:<BiIcons.BiCalendarCheck/>
+    //         },
+    //         {
+    //             title:'Past Events',
+    //             path:'/past-events',
+    //             icon:<GiIcons.GiBackwardTime/>
+    //         }
+    //     ]
+    // }
 ]
 
-export const SidebarDataforUsers = [
+export const modSidebar = [
     {
-        title: 'Home',
-        path: '/',
-        icon:<AiIcons.AiFillHome/>,
-        cName: 'nav-text',
+        title:'Main Admin Page',
+        path:'/mod-view/main-page',
+        icon:<FaIcons.FaCalendarAlt/>
     },
     {
-        title: 'Events',
-        path: '#',
-        icon:<MdIcons.MdEvent className={'icon'}/>,
-        cName: 'nav-text',
-        iconClosed:<RiIcons.RiArrowDownSFill/>,
-        iconOpened:<RiIcons.RiArrowUpSFill/>,
-        subNav: [
-            {
-                title:'All Events',
-                path:'/events',
-                icon:<MdIcons.MdEventNote/>,
-                cName:'nav-text-sub'
-            },
-            {
-                title:'Joined Events',
-                path:'/events/mod-events',
-                icon:<MdIcons.MdEventAvailable/>,
-                cName:'nav-text-sub'
-            }
-        ]
+        title:'Hosting',
+        path:'/mod-view/hosting-events',
+        icon:<BiIcons.BiHomeSmile/>
     },
     {
-        title: 'Support',
-        path: '/support',
-        icon:<IoIcons.IoMdHelpCircle/>,
-        cName: 'nav-text'
+        title:'Past Events',
+        path:'/mod-view/hosted-events',
+        icon:<GiIcons.GiBackwardTime/>
+    },
+    {
+        title:'Event Day Statistics',
+        path:'/mod-view/event-day-statistics',
+        icon:<IoIcons.IoMdStats/>
     }
+    // {
+    //     title:'My Events',
+    //     path:'#',
+    //     icon:<FaIcons.FaUserAlt/>,
+    //     iconClosed:<RiIcons.RiArrowDownSLine/>,
+    //     iconOpened:<RiIcons.RiArrowUpSLine/>,
+    //     subNav:[
+    //
+    //     ]
+    // }
 ]

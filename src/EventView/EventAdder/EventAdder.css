@@ -1,0 +1,22 @@
+.map{
+    position: relative;
+    margin:1rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.search{
+    color:#fff;
+    padding: 1rem;
+    position: absolute;
+    width:100%;
+    border:1px solid #474a4d;
+    background: none;
+    height:3rem;
+    border-radius: 8px;
+}
+
+.locationTypes{
+    margin-top: 2rem;
+    margin: 1rem;
+}

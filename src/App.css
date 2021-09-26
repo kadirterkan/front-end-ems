@@ -7,15 +7,19 @@
   font-family:'Lato', sans-serif;
 }
 
+body{
+    background-color:#151616;
+}
+
 .home, .events ,.your-events {
   display: flex;
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  color:#fff;
 }
-
-:root{
+ :root{
   --bg:#242526;
   --bg-accent:#484a4d;
   --nav-size:60px;
@@ -26,4 +30,8 @@
 
 a {
   text-decoration: none;
+}
+
+html {
+    overflow-y:scroll;
 }

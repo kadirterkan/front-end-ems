@@ -1,32 +1,29 @@
-import * as CgIcons from 'react-icons/cg';
-import * as RiIcons from "react-icons/ri";
-import * as IoIcons from "react-icons/io5";
+import {AiFillCaretDown, AiFillCaretUp, BiLogIn, BsBell} from "react-icons/all";
 
 export const NavbarData = [
+    // {
+    //     // title:'Notifications',
+    //     icon:<BsBell/>,
+    //     cName:'navbar-text',
+    //     path:'/user/notifications'
+    // },
     {
-        title:'Notifications',
-        icon:<IoIcons.IoNotificationsOutline/>,
+        icon:<BiLogIn/>,
         cName:'navbar-text',
-        path:'/user/notifications'
-    },
-    {
-        title:'Profile',
-        icon:<CgIcons.CgProfile/>,
-        cName:'navbar-text',
-        path:'#',
-        iconOpen:<RiIcons.RiArrowDownSFill/>,
-        subNav: [
-            {
-                title:'Your Profile',
-                path:'/user/profile',
-                cName:'navbar-text-sub'
-            },
-            {
-                title:'Log Out',
-                path:'/logout',
-                cName: 'navbar-text-sub'
-            }
-
-        ]
+        path:'/log-out',
+        // iconOpen:<AiFillCaretUp/>,
+        // subNav: [
+        //     {
+        //         title:'Your Profile',
+        //         path:'/user/profile',
+        //         cName:'navbar-text-sub'
+        //     },
+        //     {
+        //         title:'Log Out',
+        //         path:'/logout',
+        //         cName: 'navbar-text-sub'
+        //     }
+        //
+        // ]
     }
 ]

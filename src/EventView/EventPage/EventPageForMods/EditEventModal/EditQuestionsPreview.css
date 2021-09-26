@@ -1,0 +1,103 @@
+.edit-questions-preview-model{
+    position:relative;
+    margin-left: 5rem;
+    margin-top: 2rem;
+    margin-right: 5rem;
+    height: 600px;
+    border-radius:8px;
+    background-color:#242526;
+    color:#fff;
+    padding:1rem;
+    border:1px solid #474a4d;
+}
+
+.edit-questions-preview-interior{
+    position:absolute;
+    overflow-x:hidden;
+    overflow-y:auto;
+    height:90%;
+    width:97%;
+    margin-top:1rem;
+    background:none;
+    border-radius:8px;
+    border:1px solid #474a4d;
+    display:grid;
+}
+
+.edit-questions-question-grid{
+    padding:1rem;
+    display:grid;
+    gap:1rem;
+}
+
+.edit-questions-question-style{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap:5px;
+}
+
+.edit-questions-animated-form{
+    position:relative;
+    display:grid;
+    height:3rem;
+}
+
+.edit-questions-input{
+    border-radius:8px;
+    border:1px solid #474a4d;
+    box-shadow: none;
+    width:850px;
+    box-sizing:border-box;
+    padding:1.25rem;
+    background:none;
+    color:#fff;
+}
+
+.edit-questions-string{
+    position:absolute;
+    left:1rem;
+    padding:0 0.5rem;
+    color:#fff;
+    cursor:text;
+    transition: 200ms;
+    top:1.20rem;
+}
+
+.edit-questions-input:focus ~ .edit-questions-string,
+.edit-questions-input:not(:placeholder-shown).edit-questions-input:not(:focus) ~ .edit-questions-string{
+    color:rgba(90, 180, 255,1);
+    top:0.2rem;
+    font-size:0.8rem;
+    left:0.8rem;
+}
+
+.edit-questions-delete-question-button{
+    color:red;
+    border-radius:50%;
+    width:60px;
+    height:60px;
+    padding:1rem;
+    cursor:pointer;
+}
+
+.edit-questions-delete-question-button:hover{
+    filter: brightness(1.2);
+}
+
+.edit-questions-add-question-button{
+    color:#fff;
+    border:none;
+    padding:20px;
+    height:60px;
+    width: 100%;
+    text-align:center;
+    border-radius:8px;
+    background-color:#1560bd;
+    transition:800ms;
+    cursor:pointer;
+}
+
+.edit-questions-add-question-button:hover{
+    filter: brightness(1.2);
+}

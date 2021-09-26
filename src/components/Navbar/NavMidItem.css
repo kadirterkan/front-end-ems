@@ -1,0 +1,36 @@
+.upper-side-navigation-middle-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-inline:3rem;
+    padding-block: 1rem;
+    color:#fff;
+}
+
+.upper-side-navigation-middle-links-activate{
+    border-bottom:2px solid #1560bd;
+}
+
+.upper-side-navigation-middle-links:hover{
+    color:#1560bd;
+    background-color: #474a4d;
+    border-radius:8px;
+    filter:brightness(1.2);
+    border-bottom:2px solid #1560bd;
+}
+
+.upper-side-navigation-middle-links-active:hover{
+    color: white;
+}
+
+.upper-side-navigation-middle-links-activate .upper-side-navigation-middle-icons{
+    fill:#1560bd;
+    width:37px;
+    height:37px;
+}
+
+.upper-side-navigation-middle-icons{
+    fill:#dadce1;
+    width:37px;
+    height:37px;
+}

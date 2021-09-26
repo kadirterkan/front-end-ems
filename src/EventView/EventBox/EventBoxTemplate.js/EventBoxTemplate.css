@@ -1,0 +1,92 @@
+.skeleton{
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #686868;
+    }
+
+    100%{
+        background-color: #474a4d;
+    }
+}
+
+.event-box{
+    border-radius:8px;
+    color:#fff;
+    background-color:#242526;
+    height:300px;
+    width:360px;
+    transition:800ms;
+}
+
+.event-box:hover{
+    filter: brightness(1.2);
+}
+
+.event-box-image{
+    border-top-left-radius:8px ;
+    border-top-right-radius:8px ;
+    background-color: white;
+    height: 45%;
+    width: 100%;
+}
+
+.event-box-details{
+    padding: 1rem;
+    display: grid;
+    gap: 7px;
+}
+
+.event-box-start-date{
+}
+
+.event-box-name{
+}
+
+.event-box-status{
+
+}
+
+.event-box-info{
+    display: flex;
+    gap: 5px;
+}
+
+.event-box-going{
+
+}
+
+.event-box-duration{
+
+}
+
+.event-box-quota{
+
+}
+
+.event-box-going-button{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    background:#686868;
+    padding:8px;
+    border-radius:8px;
+    width: 100%;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.event-box-going-button:hover{
+    filter: brightness(1.2);
+}
+
+.event-box-going-button:hover ~ .event-box:hover{
+    filter: brightness(1);
+}
+
+.event-box:hover ~ .event-box-going-button:hover{
+    background-color:black;
+}

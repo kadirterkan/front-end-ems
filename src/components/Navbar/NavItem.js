@@ -1,31 +1,8 @@
 import DropdownMenu from "./DropdownMenu";
 import React,{useState} from 'react';
-import { Link } from "react-router-dom";
-import styled from 'styled-components';
-
-
-const NavbarLink = styled(Link)`
-    padding: 1rem;
-    display:flex;`
-
-const NavbarLabel = styled.span`
-    --button-size:32px;
-    width:var(--button-size);
-    height:var(--button-size);
-    background-color:#484a4d;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:filter 300ms;
-`
-
-const NavbarText = styled.span`
-    align-items:center;
-    justify-content:center;
-    display:flex;
-`
-
+import { NavLink } from "react-router-dom";
+import './NavItem.css';
+import {IconContext} from "react-icons";
 
 export default function NavItem({item}){
 
@@ -35,11 +12,11 @@ export default function NavItem({item}){
 
     return(
         <>
-            <NavbarLink to={item.path} onClick={item.subNav && handleOpen}>
-                <NavbarLabel>{item.icon}</NavbarLabel>
-                <NavbarText>{item.title}</NavbarText>
-            </NavbarLink>
-            {open && <DropdownMenu subNav={item.subNav}/>}
+            <NavLink className={"upper-side-navigation-links"} to={item.path} onClick={item.subNav && handleOpen}>
+                <IconContext.Provider value={{className:"upper-side-navigation-links-icons-left"}}>
+                    <div className={"upper-side-navigation-links-labels"}>{item.icon}</div>
+                </IconContext.Provider>
+            </NavLink>
         </>
     );
 }
