@@ -40,7 +40,7 @@ export function EventView() {
                     <div >
                         {!loaded && <NoEventsAvailable/>}
                         {/* <EventTable/> */}
-                        {loaded && <EventBox eventsList={eventQuery}/>}
+                        {loaded && <EventBox userType={'USER'} eventsList={eventQuery}/>}
                     </div>
                 </div>
         </> 

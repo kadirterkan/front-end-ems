@@ -5,7 +5,6 @@ import EventApi from "../API/EventApi";
 import NoEventsAvailable from "../EventPage/Common/NoEventsAvailable";
 import EventBox from "../EventBox/EventBox";
 
-
 export default function JoinedEvents(){
 
     const eventApi = new EventApi();
@@ -38,7 +37,7 @@ export default function JoinedEvents(){
                     <h1 className={"events-base-text"}>Joined Events</h1>
                 </div>
                 <div >
-                    {loaded && <EventBox eventsList={allHostingEvents}/>}
+                    {loaded && <EventBox userType={'USER'} eventsList={allHostingEvents}/>}
                     {!loaded && <NoEventsAvailable/>}
                 </div>
             </div>

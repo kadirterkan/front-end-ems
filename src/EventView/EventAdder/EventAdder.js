@@ -161,7 +161,7 @@ export default function EventAdder() {
             if(response.messageType === "SUCCESS"){
                 toast.success(response.message);
 
-                history.push(`/events/event-page/${newEventQuery.eventId}`);
+                history.push(`/mod-view/main-page`);
 
             }else {
                 toast.error(response.message);

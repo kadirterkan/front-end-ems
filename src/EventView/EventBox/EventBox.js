@@ -20,7 +20,7 @@ export default function EventBox(props) {
         <BoxList>
 
             {props.eventsList.map((value,index) => (
-                <EventBoxTemplate key={index} eventBoxResponse={value} />
+                <EventBoxTemplate userType={props.userType} key={index} eventBoxResponse={value} />
             ))}
 
         </BoxList>

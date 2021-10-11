@@ -18,11 +18,9 @@ export default function PastEvents(props) {
     },[]);
 
     useEffect(() => {
-
         if(allHostedEvents!==undefined && allHostedEvents!==null && allHostedEvents.length !== 0){
             setLoaded(true);
         }
-
     },[allHostedEvents])
 
 
@@ -37,8 +35,7 @@ export default function PastEvents(props) {
                 </div>
                 <div>
                     {!loaded && <NoEventsAvailable/>}
-                    {loaded && <EventBox eventsList={allHostedEvents}/>}
-
+                    {loaded && <EventBox userType={'MOD'} eventsList={allHostedEvents}/>}
                 </div>
             </div>
         </>

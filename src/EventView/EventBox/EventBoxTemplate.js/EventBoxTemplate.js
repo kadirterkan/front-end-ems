@@ -21,7 +21,7 @@ export default function EventBoxTemplate(props) {
 
     return(
         <>
-            <Link to={`/events/event-page/${props.eventBoxResponse.eventId}`} className={"event-box"}>
+            <Link to={props.userType === 'MOD' ? `/mod-view/event-page/${props.eventBoxResponse.eventId}` : `/events/event-page/${props.eventBoxResponse.eventId}`} className={"event-box"}>
                 <img src={props.eventBoxResponse.base64Image ? props.eventBoxResponse.base64Image : null} className={"event-box-image"}/>
                 <div className={"event-box-details"}>
                     <h6 className={"event-box-start-date"}>{dayjs(props.eventBoxResponse.startTime).format("dddd, MMMM D YYYY [AT] hh:mm").toUpperCase()}</h6>

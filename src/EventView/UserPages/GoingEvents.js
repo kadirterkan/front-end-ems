@@ -38,7 +38,7 @@ export default function GoingEvents(){
                     <h1 className={"events-base-text"}>Going Events</h1>
                 </div>
                 <div >
-                    {loaded && <EventBox eventsList={allGoingEvents}/>}
+                    {loaded && <EventBox userType={'USER'} eventsList={allGoingEvents}/>}
                     {!loaded && <NoEventsAvailable/>}
                 </div>
             </div>

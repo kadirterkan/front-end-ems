@@ -5,7 +5,6 @@ import EventAdder from "../EventView/EventAdder/EventAdder";
 import EditEvent from "../EventView/EventPage/EventPageForMods/EditEventModal/EditEvent";
 import EventView from "../EventView/EventView";
 
-
 export default function PagesForMods(){
 
     const WithoutNavbar = () => {
@@ -17,7 +16,7 @@ export default function PagesForMods(){
                 </Switch>
             </div>
         )
-    }
+    };
 
     const WithSideBar = () => {
         return(
@@ -29,7 +28,7 @@ export default function PagesForMods(){
                 </Switch>
             </div>
         )
-    }
+    };
 
     return(
         <div>

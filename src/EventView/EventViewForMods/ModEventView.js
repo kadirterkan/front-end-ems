@@ -27,7 +27,6 @@ export default function ModEventView (props) {
         }
     },[eventQuery]);
 
-
     return(
         <>
             <Sidebar sidebarValues={modSidebar} userType={"MOD"}/>
@@ -37,7 +36,7 @@ export default function ModEventView (props) {
                 </div>
                 <div>
                     {!loaded && <NoEventsAvailable/>}
-                    {loaded && <EventBox eventsList={eventQuery}/>}
+                    {loaded && <EventBox userType={'MOD'} eventsList={eventQuery}/>}
                 </div>
             </div>
         </>

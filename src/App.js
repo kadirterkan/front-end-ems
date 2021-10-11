@@ -74,21 +74,21 @@ function App() {
                   <Route path={"/"} exact render={() => <><EnterScreen userType={userType}/></>}/>
                   <Route path={'/main-page'} exact component={MainPage}/>
                   <Route path={'/log-out'} exact render={() => <LogOut userType={userType} setUserType={setUserType}/>}/>
-                  {load && <>{/*<Route component={WithSpecialNavbar}/>*/}
+                  {true && <>{/*<Route component={WithSpecialNavbar}/>*/}
                       <Route path="/mod-view/event-page/:id" exact component={EventPageForMods}/>
-                  {userType==="USER" && <Route path='/events/event-page/:id' exact render={(props) => <div><Navbar/><EventPage id={props.match.params.id}/></div>}/>}
-                  {userType==="USER" && <Route path='/events/event-page/join-event/:id' exact render={(props) => <div><Navbar/><JoinEventPage id={props.match.params.id}/></div>}/>}
-                  {userType==="USER" && <Route path='/events/main-page' exact render={() => <div><Navbar/><EventView/></div>}/>}
-                  {userType==="USER" && <Route path='/events/going-events' exact render={() => <div><Navbar/><GoingEvents/></div>}/>}
-                  {userType==="USER" && <Route path='/events/past-events' exact render={() => <div><Navbar/><JoinedEvents/></div>}/>}
-                  {userType==="MOD" && <Route path='/mod-view/main-page' exact render={() => <div><Navbar/><ModEventView/></div>}/>}
-                  {userType==="MOD" && <Route path='/mod-view/hosting-events' exact render={() => <div><Navbar/><HostingEvents/></div>}/>}
-                  {userType==="MOD" && <Route path='/mod-view/hosted-events' exact render={() => <div><Navbar/><PastEvents/></div>}/>}
-                  {userType==="MOD" && <Route path='/mod-view/event-day-statistics' exact render={() => <div><Navbar/><EventStatistics/></div>}/>}
-                  {userType==="MOD" && <Route path='/mod-view/create-event' exact component={EventAdder}/>}
-                  {userType==="MOD" && <Route path='/mod-view/edit-event/:id' exact component={EditEvent}/>}
+                  <Route path='/events/event-page/:id' exact render={(props) => <div><Navbar/><EventPage id={props.match.params.id}/></div>}/>
+                  <Route path='/events/event-page/join-event/:id' exact render={(props) => <div><Navbar/><JoinEventPage id={props.match.params.id}/></div>}/>
+                  <Route path='/events/main-page' exact render={() => <div><Navbar/><EventView/></div>}/>
+                  <Route path='/events/going-events' exact render={() => <div><Navbar/><GoingEvents/></div>}/>
+                  <Route path='/events/past-events' exact render={() => <div><Navbar/><JoinedEvents/></div>}/>
+                  <Route path='/mod-view/main-page' exact render={() => <div><Navbar/><ModEventView/></div>}/>
+                  <Route path='/mod-view/hosting-events' exact render={() => <div><Navbar/><HostingEvents/></div>}/>
+                  <Route path='/mod-view/hosted-events' exact render={() => <div><Navbar/><PastEvents/></div>}/>
+                  <Route path='/mod-view/event-day-statistics' exact render={() => <div><Navbar/><EventStatistics/></div>}/>
+                  <Route path='/mod-view/create-event' exact component={EventAdder}/>
+                  <Route path='/mod-view/edit-event/:id' exact component={EditEvent}/>
                   {/*{userType === "USER" && <Route component={PagesForUsers}/>}*/}
-                  {userType === "MOD" && <Route component={PagesForMods}/>}</>}
+                  <Route component={PagesForMods}/>}</>}
               </Switch>
           </BrowserRouter>
       </div>

@@ -112,7 +112,7 @@ export default function EditEvent (props) {
             if(response.messageType === "SUCCESS"){
                 toast.success(response.message);
 
-                usehistory.push(`/events/event-page/${editEventQuery.eventId}`);
+                usehistory.push(`/mod-view/main-page`);
 
             }else {
                 toast.error(response.message);

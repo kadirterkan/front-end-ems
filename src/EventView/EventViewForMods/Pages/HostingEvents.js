@@ -38,7 +38,7 @@ export default function HostingEvents(props){
                     <h1 className={"events-base-text"}>Hosting Events</h1>
                 </div>
                 <div >
-                    {loaded && <EventBox eventsList={allHostingEvents}/>}
+                    {loaded && <EventBox userType={'MOD'} eventsList={allHostingEvents}/>}
                     {!loaded && <NoEventsAvailable/>}
                 </div>
             </div>
