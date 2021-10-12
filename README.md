@@ -14,7 +14,7 @@ Kurulum için, YARN indirmeniz gerekmektedir. Yarn'dan önce NPM indirmeniz gere
 
 komutunu kullanarak , package içerisindeki dependency'leri indirmeniz gerekmektedir. 
 
-Dependency'ler indirildikten sonra, 
+- Dependency'ler indirildikten sonra, 
 
 ### `yarn start`
 
